@@ -7,4 +7,5 @@ alias xablau="ref && up"
 alias    zps="sudo zypper ps -s"
 
 ## Dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/.heron/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
