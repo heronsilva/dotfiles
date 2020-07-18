@@ -1,0 +1,15 @@
+# Personal config files (dotfiles) directory
+.dotfiles/
+
+# Default Locations
+Android/
+Applications/
+Desktop/
+Documents/
+Downloads/
+Music/
+Pictures/
+Scripts/
+Videos/
+Workbench/
+
