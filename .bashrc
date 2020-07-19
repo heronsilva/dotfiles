@@ -91,5 +91,5 @@ if [ -f ~/.pathrc ]; then
 fi
 
 export SCM_GIT_SHOW_DETAILS=true
+export HISTIGNORE=c:cd:..:ref:up:dup:zps:xablau
 export HISTCONTROL=ignoreboth:erasedups
-export HISTIGNORE=c:cd:..:ref:dup:zps
