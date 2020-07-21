@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 syntax on
@@ -43,3 +44,6 @@ set mouse=a
 " auto start plugin when starting vim opening a directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" Emmet
+let g:user_emmet_leader_key=',' " Redefine default emmet trigger key: https://github.com/mattn/emmet-vim#redefine-trigger-key
