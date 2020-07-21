@@ -1,0 +1,14 @@
+[$Version]
+update_info=delete_cursor_old_default_size.upd:DeleteCursorOldDefaultSize
+
+[Libinput][1739][52392][DELL08A6:00 06CB:CCA8 Touchpad]
+Enabled=false
+
+[Libinput][2][7][SynPS/2 Synaptics TouchPad]
+Enabled=false
+
+[Mouse]
+XLbInptAccelProfileFlat=false
+XLbInptNaturalScroll=false
+XLbInptPointerAcceleration=0.2
+cursorTheme=breeze_cursors

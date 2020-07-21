@@ -1,0 +1,60 @@
+[ActionPlugins][0]
+MidButton;NoModifier=org.kde.paste
+RightButton;NoModifier=org.kde.contextmenu
+wheel:Vertical;NoModifier=org.kde.switchdesktop
+
+[ActionPlugins][0][RightButton;NoModifier]
+_add panel=true
+_context=true
+_lock_screen=true
+_logout=true
+_run_command=true
+_sep1=true
+_sep2=true
+_sep3=true
+_wallpaper=true
+add widgets=true
+configure=true
+configure shortcuts=false
+edit mode=true
+manage activities=true
+remove=true
+run associated application=true
+
+[ActionPlugins][1]
+RightButton;NoModifier=org.kde.contextmenu
+
+[Containments][45]
+ItemGeometriesHorizontal=
+activityId=aa6dfadf-8fce-4bea-b5e7-aa1b42c0447e
+formfactor=0
+immutability=1
+lastScreen=0
+location=0
+plugin=org.kde.desktopcontainment
+wallpaperplugin=org.kde.slideshow
+
+[Containments][45][ConfigDialog]
+DialogHeight=660
+DialogWidth=880
+
+[Containments][45][Wallpaper][org.kde.slideshow][General]
+Blur=true
+Image=file:///home/heron/Pictures/wallpapers/christian-schrader-yjQB-aWPvq8-unsplash.jpg
+SlidePaths=/usr/share/wallpapers,/home/heron/Pictures/wallpapers
+
+[Containments][46]
+activityId=ab1e9bb9-d4b8-4d9e-a2dc-5f2d3adba09e
+formfactor=0
+immutability=1
+lastScreen=0
+location=0
+plugin=org.kde.plasma.folder
+wallpaperplugin=org.kde.image
+
+[Containments][46][Wallpaper][org.kde.image][General]
+Image=file:///usr/share/wallpapers/Next/contents/images/1920x1080.jpg
+
+[ScreenMapping]
+itemsOnDisabledScreens=
+screenMapping=desktop:/Home.desktop,0,desktop:/trash.desktop,0
