@@ -1,5 +1,5 @@
 # My path configuration dedicated file
-# Just so ~/.bashrc doesn't get full of `export PATH` declarations
+# Just so ~/.bashrc doesn't get bloated with many `export PATH` declarations
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
