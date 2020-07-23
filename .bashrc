@@ -86,8 +86,8 @@ fi
 #   source ~/Scripts/git-completion.bash
 # fi
 
-if [ -f ~/.pathrc ]; then
-  source ~/.pathrc
+if [ -f ~/.config/pathrc ]; then
+  source ~/.config/pathrc
 fi
 
 export SCM_GIT_SHOW_DETAILS=true
