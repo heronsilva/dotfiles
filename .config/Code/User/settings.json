@@ -1,0 +1,158 @@
+{
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "breadcrumbs.filePath": "on",
+  "color-highlight.markerType": "underline",
+  "debug.toolBarLocation": "docked",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true,
+  "editor.autoClosingOvertype": "auto",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.cursorBlinking": "solid",
+  "editor.cursorStyle": "block",
+  // "editor.fontFamily": "'Overpass Mono'",
+  "editor.fontFamily": "'Fantasque Sans Mono'",
+  // "editor.fontFamily": "'Fira Code'",
+  // "editor.fontFamily": "'IBM Plex Mono'",
+  // "editor.fontFamily": "'Fira Code', 'IBM Plex Mono', 'Fira Code Retina', 'Input Mono', Monaco, Consolas, monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  // "editor.lineHeight": 20,
+  "editor.minimap.renderCharacters": false,
+  "editor.parameterHints.enabled": false,
+  "editor.quickSuggestionsDelay": 250,
+  "editor.renderFinalNewline": true,
+  "editor.renderIndentGuides": false,
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [
+    120,
+    80
+  ],
+  "editor.showFoldingControls": "mouseover",
+  "editor.smoothScrolling": true,
+  "editor.snippetSuggestions": "inline",
+  "editor.suggest.filterGraceful": true,
+  "editor.suggestOnTriggerCharacters": false,
+  "editor.suggestSelection": "first",
+  "editor.tabCompletion": "on",
+  // "emmet.includeLanguages": {
+  //   "javascriptreact": "css",
+  //   "typescriptreact": "css"
+  // },
+  "emmet.optimizeStylesheetParsing": true,
+  "eslint.packageManager": "yarn",
+  "eslint.run": "onType",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "explorer.autoReveal": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true
+  },
+  "git.autofetch": true,
+  "git.checkoutType": "local",
+  "git.defaultCloneDirectory": "/home/heron/Workbench",
+  "git.path": "/usr/bin/git",
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": true,
+    "suppressShowKeyBindingsNotice": true,
+    "suppressUpdateNotice": false,
+    "suppressWelcomeNotice": true
+  },
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.enabled": false,
+  "html.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "javascript.suggest.autoImports": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "markdown.preview.breaks": true,
+  "prettier.packageManager": "yarn",
+  "prettier.useEditorConfig": true,
+  "sync.autoDownload": false,
+  "sync.autoUpload": false,
+  "sync.forceDownload": false,
+  "sync.gist": "70de68ee577baf58073e98f7a67166b8",
+  "sync.quietSync": true,
+  "sync.removeExtensions": true,
+  "sync.syncExtensions": true,
+  "terminal.integrated.shell.linux": "/usr/bin/bash",
+  "terminal.integrated.showExitAlert": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vim.vimrc.enable": true,
+  "vim.useCtrlKeys": false,
+  "vim.useSystemClipboard": true,
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-c>": false,
+    "<C-d>": false,
+    "<C-r>": true
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "window.menuBarVisibility": "hidden",
+  "window.newWindowDimensions": "inherit",
+  "window.title": "${rootName}${separator}${activeEditorMedium}",
+  "window.titleBarStyle": "native",
+  "workbench.colorCustomizations": {
+    "[Nord]": {
+      "tab.activeBackground": "#2e3440",
+      "tab.hoverBackground": "#2e3440",
+      "tab.inactiveBackground": "#3b4252"
+    }
+  },
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.editor.tabCloseButton": "off",
+  "workbench.panel.defaultLocation": "right",
+  "workbench.quickOpen.closeOnFocusLost": false,
+  "workbench.settings.editor": "json",
+  "workbench.sideBar.location": "left",
+  "workbench.view.alwaysShowHeaderActions": true,
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Firefox Light"
+}
