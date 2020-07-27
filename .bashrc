@@ -19,7 +19,7 @@ case $- in
 esac
 
 # Path to the bash it configuration
-export BASH_IT="$HOME/Workbench/github/bash-it"
+export BASH_IT="$HOME/.bash-it"
 
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
@@ -73,10 +73,14 @@ export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
 
+# Heron's customizations
 if [ -f ~/.bash_aliases ]; then
   source ~/.bash_aliases
 fi
 
+if [ -f ~/.config/pathrc ]; then
+  source ~/.config/pathrc
+fi
 
 # if [ -f ~/Scripts/git-prompt.sh ]; then
 #   source ~/Scripts/git-prompt.sh
@@ -86,10 +90,7 @@ fi
 #   source ~/Scripts/git-completion.bash
 # fi
 
-if [ -f ~/.config/pathrc ]; then
-  source ~/.config/pathrc
-fi
-
 export SCM_GIT_SHOW_DETAILS=true
-export HISTIGNORE=c:cd:..:ref:up:dup:zps:xablau
+export HISTIGNORE=c:cd:..:ref:up:dup:xablau:zps
 export HISTCONTROL=ignoreboth:erasedups
+
