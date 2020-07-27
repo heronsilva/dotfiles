@@ -6,6 +6,7 @@
 
 ## Replicating the dotfiles on a new system installation:
 
+### Installation script
 You can simply run the installation script with the following command:
 ```shell
 curl -o- https://raw.githubusercontent.com/heronsilva/dotfiles/master/Scripts/dotfiles-installation.sh | bash
@@ -16,7 +17,7 @@ Alternatively, with `wget`:
 wget -qO- https://raw.githubusercontent.com/heronsilva/dotfiles/master/Scripts/dotfiles-installation.sh | bash
 ```
 
-You can also go step by step, if you prefer:
+### You can also go step by step, if you prefer
 Firstly, we'll create a `config` alias for managing your repo with GIT:
 ```shell
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
