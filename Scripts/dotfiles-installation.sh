@@ -9,7 +9,9 @@ rm -rf ~/.dotfiles-backup
 
 git clone --bare $REPO_URL $DEST_PATH 
 
-alias config=/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME
+function config {
+  /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME $@
+}
 
 config checkout
 
