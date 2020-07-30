@@ -1,6 +1,6 @@
 ## Zypper
 alias    ref="sudo zypper ref"
-alias    zin="sudo zypper install "
+alias    zyp="sudo zypper install "
 alias     up="sudo zypper update"
 alias    dup="sudo zypper dist-upgrade"
 alias xablau="ref && dup"
