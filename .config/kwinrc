@@ -11,6 +11,9 @@ OpenGLIsUnsafe=false
 Id_1=1fd0fec8-549a-43b3-a49a-1ba420e27d90
 Id_2=f6f53b64-5a7d-41b7-af29-bdb0b752c89d
 Id_3=766f7c4a-af3c-49d5-822a-60be656929af
+Name_1=Code
+Name_2=Media
+Name_3=Random
 Number=3
 Rows=1
 
@@ -60,6 +63,10 @@ wobblywindowsEnabled=true
 [Script-quarter-tiling]
 autoTile=false
 gap=4
+
+[SubSession: ab1e9bb9-d4b8-4d9e-a2dc-5f2d3adba09e]
+active=-1
+count=0
 
 [TabBox]
 ApplicationsMode=1
