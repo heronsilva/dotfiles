@@ -1,0 +1,33 @@
+[LatteSettingsDialog]
+downloadWindowSize=800,550
+windowSize=700,708
+
+[LatteSettingsDialog][TabLayouts]
+columnWidths=49,85,86,49
+sortColumn=3
+sortOrder=0
+
+[Notification Messages]
+really_clear_history=true
+
+[PlasmaRunnerManager]
+LaunchCounts=1 services_applications:kcm_fonts.desktop
+
+[PlasmaThemeExtended]
+outlineWidth=1
+
+[ScreenConnectors]
+10=eDP-1
+
+[UniversalSettings]
+badges3DStyle=false
+canDisableBorders=true
+currentLayout=HeronUnity
+lastNonAssignedLayout=HeronUnity
+launchers=
+memoryUsage=0
+metaPressAndHoldEnabled=false
+mouseSensitivity=2
+screenTrackerInterval=2500
+showInfoWindow=true
+version=2
