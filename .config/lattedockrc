@@ -1,9 +1,28 @@
+[ActionsWidget]
+ColumnState=AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhkAAAACAQAAAQAAAAAAAAAAAAAAAH3/////AAAAgQAAAAAAAAACAAAA+gAAAAEAAAAAAAABHwAAAAEAAAAAAAAD6AAAAAB9
+
+[ConfigDialog]
+Height 1080=540
+Width 1920=684
+
+[General]
+Number of Actions=0
+
+[KFileDialog Settings]
+Recent Files[$e]=opensuse.svg,file:///usr/share/icons/hicolor/scalable/apps/openSUSE-distributor-logo.svg,file:$HOME/Downloads/opensuse.svg
+Recent URLs[$e]=file:///usr/share/icons/hicolor/scalable/apps/,file:$HOME/.local/share/wallpapers/
+detailViewIconSize=0
+
+[KPropertiesDialog]
+Height 1080=534
+Width 1920=499
+
 [LatteSettingsDialog]
 downloadWindowSize=800,550
-windowSize=700,708
+windowSize=1244,702
 
 [LatteSettingsDialog][TabLayouts]
-columnWidths=49,85,86,49
+columnWidths=49,99,86,192
 sortColumn=3
 sortOrder=0
 
@@ -11,23 +30,26 @@ sortOrder=0
 really_clear_history=true
 
 [PlasmaRunnerManager]
-LaunchCounts=1 services_applications:kcm_fonts.desktop
+LaunchCounts=1 services_applications:kcm_fonts.desktop,1 services_applications:jetbrains-toolbox.desktop
 
 [PlasmaThemeExtended]
 outlineWidth=1
 
 [ScreenConnectors]
 10=eDP-1
+12=DP-1
 
 [UniversalSettings]
 badges3DStyle=false
 canDisableBorders=true
-currentLayout=HeronUnity
-lastNonAssignedLayout=HeronUnity
+currentLayout=Heron
+inAdvancedModeForEditSettings=true
+lastNonAssignedLayout=Heron
 launchers=
 memoryUsage=0
 metaPressAndHoldEnabled=false
-mouseSensitivity=2
+mouseSensitivity=1
 screenTrackerInterval=2500
 showInfoWindow=true
+singleModeLayoutName=HeronUnity
 version=2

@@ -34,7 +34,7 @@ animationLauncherBouncing=false
 animationWindowAddedInGroup=false
 animationWindowInAttention=false
 isInLatteDock=true
-launchers59=applications:org.kde.dolphin.desktop,applications:firefox.desktop,applications:brave-browser.desktop,applications:google-chrome.desktop,applications:chromium-browser.desktop,applications:code.desktop,applications:code-insiders.desktop,applications:org.kde.konsole.desktop,applications:appimagekit_035b9ab54ddcd41eaaa15a48bd090151-Insomnia.desktop,applications:slack.desktop,applications:spotify.desktop,applications:virt-manager.desktop,applications:org.opensuse.YaST.desktop,applications:systemsettings.desktop
+launchers59=applications:org.kde.dolphin.desktop,applications:google-chrome.desktop,applications:brave-browser.desktop,applications:brave-browser-beta.desktop,applications:code.desktop,applications:code-insiders.desktop,applications:jetbrains-webstorm.desktop,applications:jetbrains-datagrip.desktop,applications:org.kde.konsole.desktop,applications:slack.desktop,applications:spotify.desktop,applications:virt-manager.desktop,applications:org.opensuse.YaST.desktop,applications:systemsettings.desktop
 manualScrollTasksType=Disabled
 showWindowActions=true
 taskScrollAction=ScrollNone
@@ -61,28 +61,28 @@ appletOrder=2;4
 appletShadowsEnabled=false
 autoSizeEnabled=false
 backgroundOnlyOnMaximized=true
-disablePanelShadowForMaximized=true
+blurEnabled=false
 dragActiveWindowEnabled=true
 fittsLawIsRequested=false
-iconSize=40
+iconSize=36
 inConfigureAppletsMode=true
 isStickedOnBottomEdge=true
 lengthExtMargin=4
+mouseWheelActions=false
+panelShadows=false
 panelSize=100
-panelTransparency=70
 plasmaBackgroundForPopups=true
 shadowOpacity=60
 shadowSize=45
 shadows=All
 shadowsUpgraded=true
 showGlow=false
+solidBackgroundForMaximized=true
 splitterPosition=1
 splitterPosition2=2
 tasksUpgraded=true
-themeColors=SmartThemeColors
 titleTooltips=false
 userBlocksColorizingApplets=4
-windowColors=ActiveWindowColors
 zoomLevel=0
 
 [Containments][1][Indicator]
@@ -121,12 +121,13 @@ plugin=org.kde.plasma.virtualdesktopbar
 [Containments][5][Applets][23][Configuration]
 PreloadWeight=0
 
-[Containments][5][Applets][25]
-immutability=1
-plugin=org.kde.plasma.appmenu
+[Containments][5][Applets][23][Configuration][ConfigDialog]
+DialogHeight=720
+DialogWidth=960
 
-[Containments][5][Applets][25][Configuration]
-PreloadWeight=0
+[Containments][5][Applets][23][Configuration][General]
+invertWheelSwitch=true
+showPlusButton=false
 
 [Containments][5][Applets][26]
 immutability=1
@@ -159,6 +160,7 @@ DialogHeight=660
 DialogWidth=880
 
 [Containments][5][Applets][27][Configuration][General]
+appMenuIsPresent=true
 boldFont=false
 containmentType=Latte
 filterByScreen=true
@@ -181,46 +183,41 @@ DialogWidth=880
 
 [Containments][5][Applets][33][Configuration][General]
 favoritesPortedToKAstats=true
-icon=/usr/share/icons/hicolor/scalable/apps/openSUSE-distributor-logo.svg
 menuItems=bookmark:t,application:t,computer:t,used:t,leave:t,oftenUsed:f
 switchTabsOnHover=false
 systemApplications=systemsettings.desktop,org.kde.kinfocenter.desktop
 
-[Containments][5][Applets][34]
+[Containments][5][Applets][41]
 immutability=1
-plugin=org.kde.latte.spacer
+plugin=org.kde.windowappmenu
 
-[Containments][5][Applets][34][Configuration]
-PreloadWeight=0
+[Containments][5][Applets][41][Configuration]
+PreloadWeight=42
 
-[Containments][5][Applets][34][Configuration][ConfigDialog]
-DialogHeight=660
-DialogWidth=880
+[Containments][5][Applets][41][Configuration][ConfigDialog]
+DialogHeight=720
+DialogWidth=960
 
-[Containments][5][Applets][34][Configuration][General]
+[Containments][5][Applets][41][Configuration][General]
 containmentType=Latte
-lengthPixels=16
+filterByScreen=true
+spacing=4
+supportsActiveWindowSchemes=true
+windowTitleIsPresent=true
 
-[Containments][5][Applets][7]
+[Containments][5][Applets][42]
 immutability=1
-plugin=org.kde.plasma.digitalclock
+plugin=org.kde.plasma.betterinlineclock
 
-[Containments][5][Applets][7][Configuration]
-PreloadWeight=0
-
-[Containments][5][Applets][7][Configuration][Appearance]
-use24hFormat=2
-
-[Containments][5][Applets][7][Configuration][ConfigDialog]
-DialogHeight=660
-DialogWidth=880
+[Containments][5][Applets][42][Configuration]
+PreloadWeight=52
 
 [Containments][5][Applets][8]
 immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][5][Applets][8][Configuration]
-PreloadWeight=9
+PreloadWeight=11
 SystrayContainmentId=9
 
 [Containments][5][Configuration]
@@ -229,10 +226,10 @@ PreloadWeight=0
 [Containments][5][General]
 alignment=10
 alignmentUpgraded=true
-appletOrder=34;33;26;27;25;7;8;23
+appletOrder=34;33;26;27;41;23;8;42
 appletShadowsEnabled=false
 autoSizeEnabled=false
-backgroundOnlyOnMaximized=true
+blurEnabled=false
 disablePanelShadowForMaximized=true
 dragActiveWindowEnabled=true
 fittsLawIsRequested=false
@@ -240,7 +237,6 @@ iconSize=22
 inConfigureAppletsMode=true
 panelShadows=false
 panelSize=100
-panelTransparency=70
 plasmaBackgroundForPopups=true
 shadowsUpgraded=true
 splitterPosition=5
@@ -277,7 +273,7 @@ immutability=1
 plugin=org.kde.plasma.clipboard
 
 [Containments][9][Applets][11][Configuration]
-PreloadWeight=19
+PreloadWeight=26
 
 [Containments][9][Applets][12]
 immutability=1
@@ -353,13 +349,6 @@ plugin=org.kde.plasma.bluetooth
 [Containments][9][Applets][22][Configuration]
 PreloadWeight=0
 
-[Containments][9][Applets][28]
-immutability=1
-plugin=fokus
-
-[Containments][9][Applets][28][Configuration]
-PreloadWeight=0
-
 [Containments][9][Applets][29]
 immutability=1
 plugin=touchpad
@@ -390,7 +379,7 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][9][Applets][35][Configuration]
-PreloadWeight=34
+PreloadWeight=26
 
 [Containments][9][ConfigDialog]
 DialogHeight=660
@@ -408,6 +397,7 @@ color=blue
 customBackground=
 customTextColor=fcfcfc
 disableBordersForMaximizedWindows=true
+icon=
 lastUsedActivity=aa6dfadf-8fce-4bea-b5e7-aa1b42c0447e
 launchers=
 preferredForShortcutsTouched=false
