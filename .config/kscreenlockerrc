@@ -5,7 +5,10 @@ update_info=kscreenlocker.upd:0.1-autolock
 Autolock=false
 
 [Greeter]
-Theme=org.kde.breeze.desktop
+Theme=org.kde.breezedark.desktop
+
+[Greeter][LnF][General]
+showMediaControls=false
 
 [Greeter][Wallpaper][org.kde.image][General]
-Image=file:///home/heron/Pictures/wallpapers/876590.png
+Image=/usr/share/wallpapers/openSUSEdefault/

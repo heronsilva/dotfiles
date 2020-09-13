@@ -1,3 +1,8 @@
 [Windeco]
 ButtonSize=ButtonSmall
+ButtonSpacing=4
+ButtonStyle=plasma
 DrawBackgroundGradient=false
+DrawTitleBarSeparator=false
+OpaqueTitleBar=false
+TitleBarFont=Open Sans,10,-1,5,50,0,0,0,0,0
