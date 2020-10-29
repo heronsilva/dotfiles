@@ -39,7 +39,7 @@ config checkout
 ```
 
 To avoid `config status` (`git status`) display every untracked file, you can set:
-```
+```shell
 config config --local status.showUntrackedFiles no
 ```
 
