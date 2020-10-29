@@ -9,12 +9,12 @@
 ### Installation script
 You can simply run the installation script with the following command:
 ```shell
-curl -o- https://raw.githubusercontent.com/heronsilva/dotfiles/master/Scripts/dotfiles-installation.sh | bash
+curl -o- https://raw.githubusercontent.com/heronsilva/dotfiles/master/.scripts/dotfiles-installation.sh | bash
 ```
 
 Alternatively, with `wget`:
 ```shell
-wget -qO- https://raw.githubusercontent.com/heronsilva/dotfiles/master/Scripts/dotfiles-installation.sh | bash
+wget -qO- https://raw.githubusercontent.com/heronsilva/dotfiles/master/.scripts/dotfiles-installation.sh | bash
 ```
 
 ### You can also go step by step, if you prefer
