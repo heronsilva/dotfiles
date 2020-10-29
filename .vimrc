@@ -1,9 +1,8 @@
 call plug#begin('~/.vim/plugged')
-Plug 'mattn/emmet-vim'
+Plug 'romainl/vim-cool' " https://vi.stackexchange.com/a/13378
 call plug#end()
 
 syntax on
-colorscheme nord
 filetype plugin indent on
 
 set cul                 " Enable current line
@@ -30,7 +29,7 @@ set tabstop=2
 
 set undolevels=1000             " Number of undo levels
 set backspace=indent,eol,start  " Backspace behaviour
-set clipboard=unnamedplus       " Enable system clipboard integration
+set clipboard=unnamedplus       " Enable system clipboard integration. See: https://stackoverflow.com/a/27928635
 
 " recommended settings from http://vim.wikia.com/wiki/Example_vimrc
 set nocompatible
@@ -45,5 +44,6 @@ set mouse=a
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-" Emmet
-let g:user_emmet_leader_key=',' " Redefine default emmet trigger key: https://github.com/mattn/emmet-vim#redefine-trigger-key
+" search for visually selected text. see: https://vim.fandom.com/wiki/Search_for_visually_selected_text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
