@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+Plug 'editorconfig/editorconfig-vim'
 Plug 'romainl/vim-cool' " https://vi.stackexchange.com/a/13378
 call plug#end()
 
