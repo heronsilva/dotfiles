@@ -1,5 +1,6 @@
 # Personal config files (dotfiles) directory
 .dotfiles/
+.kdotfiles/
 
 # Default Locations
 Android/
