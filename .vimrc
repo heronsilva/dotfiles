@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/plugged')
 Plug 'editorconfig/editorconfig-vim'
-Plug 'romainl/vim-cool' " https://vi.stackexchange.com/a/13378
+" https://vi.stackexchange.com/a/13378
+Plug 'romainl/vim-cool'
 call plug#end()
 
 syntax on
@@ -47,4 +48,9 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 " search for visually selected text. see: https://vim.fandom.com/wiki/Search_for_visually_selected_text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" delete sends text to "black hole" instead of clipboard
+" see: https://stackoverflow.com/q/54255,
+nnoremap d "_d
+nnoremap x "_x
 
