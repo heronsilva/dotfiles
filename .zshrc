@@ -92,6 +92,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   alias-finder
+  docker
+  docker-compose
   git
 )
 
@@ -153,6 +155,8 @@ zplug "zdharma/fast-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 
+zplug "romkatv/powerlevel10k", as:theme, depth:1
+
 # Install plugins if there are plugins that have not been installed
 if ! zplug check; then
     printf "Install? [y/N]: "
@@ -164,4 +168,12 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 # End ZPlug
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+HISTORY_IGNORE="(ls|cd|pwd|exit|ref|dup|zps)"
+
+# Path
+path+=($HOME/.deno/bin)
+# Path End
 
