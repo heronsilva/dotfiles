@@ -169,11 +169,18 @@ fi
 zplug load
 # End ZPlug
 
+export EDITOR=$(which vim)
+export VISUAL=$(which vim)
+
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
+setopt HISTIGNOREDUPS
+
 HISTORY_IGNORE="(ls|cd|pwd|exit|ref|dup|zps)"
+ZSH_AUTOSUGGEST_HISTORY_IGNORE="(c|cd|..|ref|dup*|zps)"
 
 # Path
+path+=($HOME/.local/bin)
 path+=($HOME/.deno/bin)
 # Path End
-
