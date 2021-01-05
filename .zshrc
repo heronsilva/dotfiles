@@ -9,7 +9,7 @@ fi
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -v
+bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
@@ -30,7 +30,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -184,3 +183,48 @@ ZSH_AUTOSUGGEST_HISTORY_IGNORE="(c|cd|..|ref|dup*|zps)"
 path+=($HOME/.local/bin)
 path+=($HOME/.deno/bin)
 # Path End
+
+# Aliases
+## Zypper
+alias    ref="sudo zypper ref"
+alias    zyp="sudo zypper install "
+alias    rem="sudo zypper remove --clean-deps "
+alias     up="sudo zypper update "
+alias    dup="sudo zypper dist-upgrade "
+alias xablau="ref && dup"
+alias    zps="sudo zypper ps -s"
+
+# clear scrollback. see: https://apple.stackexchange.com/a/113168
+# alias      c=" clear && printf '\e[3J'"
+alias      c=" clear"
+
+## Dotfiles
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+alias histclean='nl ~/.bash_history | sort -k 2  -k 1,1nr| uniq -f 1 | sort -n | cut -f 2 > unduped_history && cp unduped_history ~/.bash_history'
+# End Aliases
+
+# Functions
+function copy {
+  xclip -selection clipboard $1
+}
+
+function clear_scrollback_buffer {
+  # Behavior of clear:
+  # 1. clear scrollback if E3 cap is supported (terminal, platform specific)
+  # 2. then clear visible screen
+  # For some terminal 'e[3J' need to be sent explicitly to clear scrollback
+  clear && printf '\e[3J'
+
+  # .reset-prompt: bypass the zsh-syntax-highlighting wrapper
+  # https://github.com/sorin-ionescu/prezto/issues/1026
+  # https://github.com/zsh-users/zsh-autosuggestions/issues/107#issuecomment-183824034
+  # -R: redisplay the prompt to avoid old prompts being eaten up
+  # https://github.com/Powerlevel9k/powerlevel9k/pull/1176#discussion_r299303453
+  zle && zle .reset-prompt && zle -R
+}
+
+zle -N clear_scrollback_buffer
+bindkey '^L' clear_scrollback_buffer
+# End Functions
+
