@@ -54,7 +54,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -143,9 +143,13 @@ load-nvmrc() {
     nvm use default
   fi
 }
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
 # End NVM Config
+
+export NVM_AUTO_USE=true
+export NVM_LAZY_LOAD=true
 
 # ZPlug
 source ~/.zplug/init.zsh
@@ -155,6 +159,8 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 
 zplug "romkatv/powerlevel10k", as:theme, depth:1
+
+zplug "lukechilds/zsh-nvm"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check; then
@@ -190,7 +196,7 @@ alias    ref="sudo zypper ref"
 alias    zyp="sudo zypper install "
 alias    rem="sudo zypper remove --clean-deps "
 alias     up="sudo zypper update "
-alias    dup="sudo zypper dist-upgrade "
+alias    dup="sudo zypper -v dist-upgrade "
 alias xablau="ref && dup"
 alias    zps="sudo zypper ps -s"
 
@@ -202,6 +208,8 @@ alias      c=" clear"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias histclean='nl ~/.bash_history | sort -k 2  -k 1,1nr| uniq -f 1 | sort -n | cut -f 2 > unduped_history && cp unduped_history ~/.bash_history'
+
+alias gfp="git fetch --prune"
 # End Aliases
 
 # Functions
@@ -227,4 +235,7 @@ function clear_scrollback_buffer {
 zle -N clear_scrollback_buffer
 bindkey '^L' clear_scrollback_buffer
 # End Functions
+
+# VI mode
+# bindkey -v
 
