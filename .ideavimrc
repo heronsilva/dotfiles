@@ -1,15 +1,23 @@
 source ~/.vimrc
 
 set ideajoin
-set clipboard+=unnamed     " Yanks go on clipboard instead.
+set surround
 
-" delete sends text to 'black hole' instead of clipboard
-" see: https://stackoverflow.com/q/54255,
-" normal mode
-nnoremap d "_d
-nnoremap x "_x
-nnoremap dd "_dd
-" visual mode
-vnoremap d "_d
-vnoremap x "_x
+set clipboard+=ideaput
 
+nnoremap <S-Left> :action EditorLeftWithSelection<CR>
+nnoremap <S-Right> :action EditorRightWithSelection<CR>
+nnoremap <S-Up> :action EditorUpWithSelection<CR>
+nnoremap <S-Down> :action EditorDownWithSelection<CR>
+
+inoremap <S-Left> <C-O>:action EditorLeftWithSelection<CR>
+inoremap <S-Right> <C-O>:action EditorRightWithSelection<CR>
+inoremap <S-Up> <C-O>:action EditorUpWithSelection<CR>
+inoremap <S-Down> <C-O>:action EditorDownWithSelection<CR>
+
+"https://stackoverflow.com/a/29191836
+"nnoremap <Tab> >>_
+"nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
