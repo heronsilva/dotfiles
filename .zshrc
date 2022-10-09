@@ -121,6 +121,9 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # NVM Config
+export NVM_SYMLINK_CURRENT=true
+
+# custom hook
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -144,35 +147,9 @@ load-nvmrc() {
   fi
 }
 
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 # End NVM Config
-
-export NVM_AUTO_USE=true
-export NVM_LAZY_LOAD=true
-
-# ZPlug
-source ~/.zplug/init.zsh
-
-zplug "zdharma/fast-syntax-highlighting"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-
-zplug "romkatv/powerlevel10k", as:theme, depth:1
-
-zplug "lukechilds/zsh-nvm"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
-# End ZPlug
 
 export EDITOR=$(which vim)
 export VISUAL=$(which vim)
@@ -182,40 +159,42 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 setopt HISTIGNOREDUPS
 
-HISTORY_IGNORE="(ls|cd|pwd|exit|ref|dup|zps)"
-ZSH_AUTOSUGGEST_HISTORY_IGNORE="(c|cd|..|ref|dup*|zps)"
+HISTORY_IGNORE="(ls|cd|pwd|exit|ref|dup|zps|pac|aur)"
+ZSH_AUTOSUGGEST_HISTORY_IGNORE="(c|cd|..|ref|dup*|zps|pac|aur)"
 
 # Path
 path+=($HOME/.local/bin)
-path+=($HOME/.deno/bin)
 # Path End
 
 # Aliases
-## zypper
-alias    ref="sudo zypper ref"
-alias    zyp="sudo zypper install "
-alias    rem="sudo zypper remove --clean-deps "
-alias     up="sudo zypper update "
-alias    dup="sudo zypper -v dist-upgrade "
-alias xablau="ref && dup"
-alias    zps="sudo zypper ps -s"
+alias pac="sudo pacman -Syyu --needed"
+alias aur="sudo aura -Akua"
+alias rmo="pacman -Qtdq | sudo pacman -Rns -"
 
 # clear scrollback. see: https://apple.stackexchange.com/a/113168
 # alias      c=" clear && printf '\e[3J'"
 alias      c=" clear"
 
 ## dotfiles
+alias dotfiles="GIT_WORK_TREE=~ GIT_DIR=$HOME/.dotfiles/"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias kconfig='/usr/bin/git --git-dir=$HOME/.kdotfiles --work-tree=$HOME'
+alias kconfig='/usr/bin/git --git-dir=$HOME/.kdotfiles/ --work-tree=$HOME'
 
 alias histclean='nl ~/.bash_history | sort -k 2  -k 1,1nr| uniq -f 1 | sort -n | cut -f 2 > unduped_history && cp unduped_history ~/.bash_history'
-
-alias gfp="git fetch --prune"
 # End Aliases
 
 # Functions
-function copy {
-  xclip -selection clipboard $1
+copy() {
+  if [[ "${XDG_SESSION_TYPE}" == "wayland" ]]; then
+    $1 | wl-copy -n
+  fi
+
+  $1 | xclip -selection clipboard
+}
+
+mkcd () {
+  mkdir "$1"
+  cd "$1"
 }
 
 function clear_scrollback_buffer {
@@ -237,6 +216,43 @@ zle -N clear_scrollback_buffer
 bindkey '^L' clear_scrollback_buffer
 # End Functions
 
-# VI mode
-# bindkey -v
+# Autostart X at login
+# https://wiki.archlinux.org/index.php/Xinit#Autostart_X_at_login
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    exec startx
+fi
 
+if [[ "${XDG_SESSION_TYPE}" == "wayland" ]]; then
+  export QT_QPA_PLATFORM=xcb
+fi
+
+export LIBVA_DRIVER_NAME=vdpau
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+zinit load "zdharma-continuum/fast-syntax-highlighting"
+zinit load "zsh-users/zsh-autosuggestions"
+zinit load "zsh-users/zsh-syntax-highlighting"
+zinit load "zsh-users/zsh-completions"
+zinit ice depth=1; zinit light romkatv/powerlevel10k
