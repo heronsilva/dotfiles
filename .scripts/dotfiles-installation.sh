@@ -1,13 +1,13 @@
 #!/bin/bash
 
-REPO_URL=https://github.com/heronsilva/dotfiles.git
+REPO_URL=git@github.com:heronsilva/dotfiles.git
 DEST_PATH=$HOME/.dotfiles
 BACKUP_PATH=$HOME/.dotfiles-backup
 
 rm -rf ~/.dotfiles
 rm -rf ~/.dotfiles-backup
 
-git clone --bare $REPO_URL $DEST_PATH 
+git clone --bare $REPO_URL $DEST_PATH
 
 function config {
   /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME $@
@@ -19,7 +19,7 @@ if [ $? = 0 ]; then
   echo "Checked out .dotfiles";
 else
   echo "Backing up pre-existing dot files";
-  mkdir -p BACKUP_PATH 
+  mkdir -p BACKUP_PATH
 
   files=`config checkout 2>&1 | egrep "\s+\." | awk {'print $1'}`
 
