@@ -1,4 +1,4 @@
-vim.opt.cul = true
+vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.linebreak = true
 vim.opt.showbreak = "+++"
