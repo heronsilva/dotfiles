@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -41,3 +41,23 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- from heron .vimrc
+
+-- search for visually selected text. see: https://vim.fandom.com/wiki/Search_for_visually_selected_text
+vim.keymap.set("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+
+-- delete sends text to 'black hole'
+-- instead of clipboard: https://stackoverflow.com/q/54255,
+vim.keymap.set("n", "_d", vim.cmd.d)
+vim.keymap.set("n", "_x", vim.cmd.x)
+vim.keymap.set("n", "_dd", vim.cmd.dd)
+vim.keymap.set("v", "_d", vim.cmd.d)
+
+-- save current file
+vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("i", "<leader>w", "<Esc>:w<CR>")
+vim.keymap.set("n", "<leader>q", ":q<CR>")
+
+-- select all text
+vim.keymap.set("n", "<C-A>", "ggVG")
