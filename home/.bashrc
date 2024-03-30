@@ -72,29 +72,3 @@ export TERM=xterm
 export SCM_GIT_SHOW_DETAILS=true
 export HISTIGNORE=c:cd:..:ref:up:dup:xablau:zps
 export HISTCONTROL=ignoreboth:erasedups
-
-# nvm config
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Run 'nvm use' automatically every time there's
-# a .nvmrc file in the directory. Also, revert to default
-# version when entering a directory without .nvmrc
-#
-# See: https://stackoverflow.com/a/50378304
-enter_directory() {
-  if [[ $PWD == $PREV_PWD ]]; then
-    return
-  fi
-
-  PREV_PWD=$PWD
-  if [[ -f ".nvmrc" ]]; then
-    nvm use
-    NVM_DIRTY=true
-  elif [[ $NVM_DIRTY = true ]]; then
-    nvm use default
-    NVM_DIRTY=false
-  fi
-}
-# end nvm config
