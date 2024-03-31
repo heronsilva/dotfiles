@@ -1,16 +1,10 @@
 #!/bin/bash
 
-#ORIGIN=git@github.com:heronsilva/dotfiles.git
-ORIGIN=https://github.com/heronsilva/dotfiles.git
-REPO_PATH=$HOME/dotfiles-src
+DOTFILES_PATH=$PWD
 TIMESTAMP="$(date +%Y-%m-%d_%H:%M:%S)"
 BACKUP_PATH=$HOME/.dotfiles_bkp_$TIMESTAMP
 
-rm -rf $REPO_PATH
 mkdir -p $BACKUP_PATH
-git clone $ORIGIN $REPO_PATH
-cd $REPO_PATH
-git checkout refactor-from-git-bare-repo-to-script
 
 function confirm() {
 	read -p "$1 [Y/n] " resp
@@ -41,7 +35,7 @@ function install_files() {
 			if confirm "Install $file?"; then
 				backup_if_exists $HOME/$file
 
-				relative_path=$(realpath --relative-to $REPO_PATH/home $1/$file)
+				relative_path=$(realpath --relative-to $DOTFILES_PATH/home $1/$file)
 				parent_dir=$(dirname $relative_path)
 
 				if [ $parent_dir != "." ] && [ ! -z $parent_dir ]; then
@@ -49,7 +43,7 @@ function install_files() {
 					mkdir -p $HOME/$parent_dir
 				fi
 
-				echo "creating symbolic link for "$1/$file" at /$relative_path"
+				echo "creating symbolic link for "$1/$file" at $HOME/$relative_path"
 				ln -sf $1/$file $HOME/$relative_path
 			fi
 		elif [ -d $1/$file ]; then
@@ -58,4 +52,4 @@ function install_files() {
 	done
 }
 
-install_files $REPO_PATH/home
+install_files $DOTFILES_PATH/home
