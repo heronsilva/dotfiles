@@ -1,15 +1,2 @@
-# Personal config files (dotfiles) directory
-.dotfiles/
-.kdotfiles/
-
-# Default Locations
-Android/
-Applications/
-Desktop/
-Documents/
-Downloads/
-Music/
-Pictures/
-Videos/
-Workbench/
-
+.DS_Store
+.idea
