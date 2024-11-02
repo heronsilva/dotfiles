@@ -30,7 +30,7 @@ function backup_if_exists() {
 }
 
 function install_files() {
-	for file in $(ls -A $1); do
+	for file in $(ls -A --ignore=.git $1); do
 		if [ -f $1/$file ]; then
 			if confirm "Install $file?"; then
 				backup_if_exists $HOME/$file
