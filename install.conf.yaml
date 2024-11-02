@@ -1,0 +1,31 @@
+- defaults:
+    link:
+      relink: true
+
+# - clean: ['~']
+
+- link:
+    # ~/.config/alacritty: .config/alacritty
+    # ~/.config/nvim: .config/nvim
+    ~/.bash_aliases: .bash_aliases
+    ~/.bashrc: .bashrc
+    ~/.config: .config
+    ~/.gitconfig: .gitconfig
+    ~/.ideavimrc: .ideavimrc
+    ~/.inputrc: .inputrc
+    ~/.tmux.conf: .tmux.conf
+    ~/.vimrc: .vimrc
+    ~/.zsh:
+        relink: true
+        path: .zsh
+    ~/.zshrc:
+        relink: true
+        force: true
+        path: .zshrc
+
+- create:
+    - ~/Workbench
+    - ~/.vim/undodir
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
