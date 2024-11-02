@@ -1,0 +1,15 @@
+[user]
+  name = Heron Silva
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = nvim
+  autocrlf = input
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[alias]
+  undo = reset --soft HEAD^
+[pull]
+  rebase = true
