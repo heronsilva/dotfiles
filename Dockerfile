@@ -1,6 +1,8 @@
 FROM manjarolinux/base
 
-RUN command -v sudo || pacman -Sy --noconfirm sudo
+RUN command -v sudo || pacman -Sy --noconfirm sudo git zsh
+RUN pacman -Sy --noconfirm git vim zsh xdg-user-dirs
+RUN xdg-user-dirs-update
 
 RUN useradd -m heron
 RUN usermod -aG wheel heron
