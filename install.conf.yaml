@@ -5,11 +5,10 @@
 # - clean: ['~']
 
 - link:
-    # ~/.config/alacritty: .config/alacritty
-    # ~/.config/nvim: .config/nvim
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
-    ~/.config: .config
+    ~/.config/alacritty: .config/alacritty
+    ~/.config/nvim: .config/nvim
     ~/.gitconfig: .gitconfig
     ~/.ideavimrc: .ideavimrc
     ~/.inputrc: .inputrc
