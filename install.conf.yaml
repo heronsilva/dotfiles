@@ -2,13 +2,17 @@
     link:
       relink: true
 
-# - clean: ['~']
+- clean: ["~"]
 
 - link:
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
-    ~/.config/alacritty: .config/alacritty
-    ~/.config/nvim: .config/nvim
+    ~/.config/alacritty:
+      create: true
+      path: .config/alacritty
+    ~/.config/nvim:
+      create: true
+      path: .config/nvim
     ~/.gitconfig: .gitconfig
     ~/.ideavimrc: .ideavimrc
     ~/.inputrc: .inputrc
@@ -18,7 +22,6 @@
         relink: true
         path: .zsh
     ~/.zshrc:
-        relink: true
         force: true
         path: .zshrc
 
