@@ -20,15 +20,15 @@
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
     ~/.zsh:
-        force: true
-        path: .zsh
+      force: true
+      path: .zsh
     ~/.zshrc:
-        force: true
-        path: .zshrc
+      force: true
+      path: .zshrc
 
 - create:
     - ~/Workbench
     - ~/.vim/undodir
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]

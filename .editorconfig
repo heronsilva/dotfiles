@@ -11,3 +11,6 @@ trim_trailing_whitespace = true
 [{*.sh,*.zsh}]
 indent_size = 4
 indent_style = tab
+
+[{*.yml,*.yaml}]
+indent_size = 2
