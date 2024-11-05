@@ -1,5 +1,6 @@
 - defaults:
     link:
+      create: true
       relink: true
 
 - clean: ["~"]
@@ -19,7 +20,7 @@
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
     ~/.zsh:
-        relink: true
+        force: true
         path: .zsh
     ~/.zshrc:
         force: true
