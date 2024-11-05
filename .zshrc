@@ -16,4 +16,6 @@ source $HOME/.zsh/export.zsh
 source_if_exists ~/.p10k.zsh
 source_if_exists ~/.shared-resources.sh
 
-[ -f ~/.fzf.zsh ] && source <(fzf --zsh)
+if type fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
