@@ -8,11 +8,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 source $HOME/.zsh/options.zsh
+source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/plugins.zsh
 source $HOME/.zsh/export.zsh
 
-# To customize prompt, run p10k configure or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[ -f ~/.shared-resources.sh ] && source ~/.shared-resources.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source_if_exists ~/.p10k.zsh
+source_if_exists ~/.shared-resources.sh
+
+[ -f ~/.fzf.zsh ] && source <(fzf --zsh)

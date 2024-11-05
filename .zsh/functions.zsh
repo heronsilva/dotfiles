@@ -1,3 +1,11 @@
+source_if_exists() {
+	local file=$1
+
+	if [[ -f "$file" ]]; then
+		source "$file" &>/dev/null
+	fi
+}
+
 copy() {
 	if [[ "${XDG_SESSION_TYPE}" == "wayland" ]]; then
 		$1 | wl-copy -n
