@@ -11,7 +11,6 @@ source $HOME/.zsh/options.zsh
 source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/plugins.zsh
-source $HOME/.zsh/export.zsh
 
 source_if_exists ~/.shared-resources.sh
 

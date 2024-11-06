@@ -3,7 +3,7 @@ export EDITOR=$(which vim)
 export VISUAL=$(which vim)
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/heron/.rd/bin:$PATH"
+export PATH="~/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 export NVM_DIR="$HOME/.nvm"
