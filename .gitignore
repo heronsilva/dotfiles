@@ -1,2 +1,3 @@
 .DS_Store
 .idea
+.config/nvim/lazy-lock.json
