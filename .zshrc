@@ -13,9 +13,10 @@ source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/plugins.zsh
 source $HOME/.zsh/export.zsh
 
-source_if_exists ~/.p10k.zsh
 source_if_exists ~/.shared-resources.sh
 
 if type fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

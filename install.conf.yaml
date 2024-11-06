@@ -17,6 +17,9 @@
     ~/.gitconfig: .gitconfig
     ~/.ideavimrc: .ideavimrc
     ~/.inputrc: .inputrc
+    ~/.p10k.zsh:
+      force: true
+      path: .p10k.zsh
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
     ~/.zsh:
