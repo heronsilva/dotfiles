@@ -11,5 +11,12 @@
   required = true
 [alias]
   undo = reset --soft HEAD^
+
+  # https://stackoverflow.com/questions/8475448/find-merge-commit-which-includes-a-specific-commit
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+
+  sync = "!sh -c 'git fetch --all --tags --prune --jobs=10 && git pull --rebase'"
+  clean-branches = "!f() { for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do git branch -D $branch; done }; f"
 [pull]
   rebase = true
