@@ -11,6 +11,10 @@
     ~/.config/alacritty:
       create: true
       path: .config/alacritty
+    # in case of deleting ~/.config/nvim, use this to relink:
+    # mv ~/.config/nvim .config/
+    # ln -s ~/Workbench/dotfiles/.config/nvim ~/.config/nvim
+    # ls -l ~/.config | grep nvim # check if it was succesfully linked
     ~/.config/nvim:
       create: true
       path: .config/nvim
