@@ -152,6 +152,48 @@ require("lazy").setup({
             },
         },
     },
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async" },
+        -- Option 3: treesitter as a main provider instead
+        -- (Note: the `nvim-treesitter` plugin is *not* needed.)
+        -- ufo uses the same query files for folding (queries/<lang>/folds.scm)
+        -- performance and stability are better than `foldmethod=nvim_treesitter#foldexpr()`
+        config = function()
+            require("ufo").setup({
+                provider_selector = function(bufnr, filetype, buftype)
+                    return { "treesitter", "indent" }
+                end,
+            })
+        end,
+    },
+    {
+        "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+        { -- Highlight todo, notes, etc in comments
+            "folke/todo-comments.nvim",
+            event = "VimEnter",
+            dependencies = { "nvim-lua/plenary.nvim" },
+            opts = { signs = false },
+        },
+    },
+    {
+        "folke/todo-comments.nvim",
+        event = "VimEnter",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = { signs = false },
+    },
+    {
+        -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+        -- used for completion, annotations and signatures of Neovim apis
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
 }, {
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
