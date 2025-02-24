@@ -19,6 +19,12 @@ mkcd() {
 	cd "$1"
 }
 
+function nvim_clear_cache_and_state {
+	rm -rf ~/.local/state/
+	rm -rf ~/.local/share/nvim/
+	rm -rf ~/.cache/nvim/
+}
+
 function clear_scrollback_buffer {
 	# Behavior of clear:
 	# 1. clear scrollback if E3 cap is supported (terminal, platform specific)

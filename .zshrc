@@ -13,9 +13,14 @@ source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/plugins.zsh
 
 source_if_exists ~/.shared-resources.sh
+source_if_exists "$HOME/.cargo/env"
 
 if type fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
