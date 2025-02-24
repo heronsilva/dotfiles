@@ -120,6 +120,7 @@ return {
                     highlight_separator = "NeoTreeTabSeparatorInactive",
                     highlight_separator_active = "NeoTreeTabSeparatorActive",
                 },
+                event_handlers = {},
                 default_component_configs = {
                     container = {
                         enable_character_fade = true,
@@ -456,6 +457,7 @@ return {
                             ["H"] = "toggle_hidden",
                             ["/"] = "fuzzy_finder",
                             ["D"] = "fuzzy_finder_directory",
+                            ["d"] = "trash",
                             --["/"] = "filter_as_you_type", -- this was the default until v1.28
                             ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
                             -- ["D"] = "fuzzy_sorter_directory",
@@ -731,6 +733,13 @@ return {
                 -- open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- Prevent replacing these buffers
             })
 
+            -- if not is_single_file then
+            -- vim.api.nvim_create_autocmd("VimEnter", { command = "Neotree show last" })
+            -- end
         end
+
+        -- Open Neotree on VimEnter
+        -- vim.api.nvim_create_autocmd("VimEnter", { command = "set nornu nonu | Neotree show" })
+        -- vim.api.nvim_create_autocmd("BufEnter", { command = "set rnu nu" })
     end,
 }

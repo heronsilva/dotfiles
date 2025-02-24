@@ -22,7 +22,7 @@ local function persistent_colorscheme()
                         file:close()
                     end
 
-                    -- Automatically source colors.lua to apply the theme immediately
+                    -- Automatically source colors.lua to apply the theme
                     vim.cmd("source " .. vim.fn.stdpath("config") .. "/lua/config/colors.lua")
 
                     -- Debug: Confirm colorscheme application
