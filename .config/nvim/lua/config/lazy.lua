@@ -98,9 +98,24 @@ require("lazy").setup({
     },
     {
         "folke/zen-mode.nvim",
-        ---@module "zen-mode"
-        ---@type ZenOptions
-        opts = {},
+        config = function()
+            vim.keymap.set("n", "<leader>zz", function()
+                require("zen-mode").setup()
+                require("zen-mode").toggle()
+                vim.wo.wrap = false
+                vim.wo.number = true
+                vim.wo.rnu = true
+            end)
+
+            vim.keymap.set("n", "<leader>zZ", function()
+                require("zen-mode").setup()
+                require("zen-mode").toggle()
+                vim.wo.wrap = false
+                vim.wo.number = false
+                vim.wo.rnu = false
+                vim.opt.colorcolumn = "0"
+            end)
+        end,
     },
     { -- https://github.com/ThePrimeagen/refactoring.nvim
         "ThePrimeagen/refactoring.nvim",
@@ -200,7 +215,7 @@ require("lazy").setup({
         vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>"),
         vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<CR>"),
         vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>"),
-    }
+    },
 }, {
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
