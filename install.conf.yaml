@@ -28,10 +28,10 @@
     ~/.vimrc: .vimrc
     ~/.zsh:
       force: true
-      path: .zsh
+      path: home/.zsh
     ~/.zshrc:
       force: true
-      path: .zshrc
+      path: home/.zshrc
 
 - create:
     - ~/Workbench
