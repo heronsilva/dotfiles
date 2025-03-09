@@ -21,6 +21,10 @@ style = "Regular"
 [window]
 startup_mode = "Maximized"
 option_as_alt = "Both"
+# decorations = 'none'
+dynamic_title = true
+blur = true
+opacity = 1
 
 [window.padding]
 x = 8
@@ -28,11 +32,12 @@ y = 8
 
 [general]
 import = [
-  "~/.config/alacritty/themes/themes/gruvbox_light.toml",
+  # "~/.config/alacritty/themes/themes/gruvbox_light.toml",
   # "~/.config/alacritty/themes/themes/gruvbox_dark.toml",
   # "~/.config/alacritty/themes/themes/catppuccin_frappe.toml",
-  # "~/.config/alacritty/themes/themes/nord.toml",
+  "~/.config/alacritty/themes/themes/nord.toml",
   # "~/.config/alacritty/themes/themes/solarized_dark.toml",
+  # "~/.config/alacritty/themes/themes/solarized_light.toml",
   # "~/.config/alacritty/themes/themes/nordic.toml",
   # "~/.config/alacritty/themes/themes/dracula.toml",
   # "~/.config/alacritty/themes/themes/monokai.toml",
@@ -67,10 +72,10 @@ mods = "Control"
 chars = "\u0021"
 
 # New Tab
-[[keyboard.bindings]]
-key = "T"
-mods = "Control"
-chars = "\u0024"
+# [[keyboard.bindings]]
+# key = "T"
+# mods = "Control"
+# chars = "\u0024"
 
 # Close Tab
 [[keyboard.bindings]]
@@ -79,16 +84,16 @@ mods = "Control"
 chars = "\u0027"
 
 # Next Tab
-[[keyboard.bindings]]
-key = "Tab"
-mods = "Control"
-chars = "\u0011"
+# [[keyboard.bindings]]
+# key = "Tab"
+# mods = "Control"
+# chars = "\u0011"
 
 # Previous Tab
-[[keyboard.bindings]]
-key = "Tab"
-mods = "Control | Shift"
-chars = "\u0011"
+# [[keyboard.bindings]]
+# key = "Tab"
+# mods = "Control | Shift"
+# chars = "\u0011"
 
 # Clear Scrollback
 [[keyboard.bindings]]
@@ -107,23 +112,30 @@ chars = "\u0015"
 key = "ArrowLeft"
 mods = "Command"
 chars = "\u0001"
-
 # Command + right arrow to move to the end of the line
 [[keyboard.bindings]]
 key = "ArrowRight"
 mods = "Command"
 chars = "\u0005"
+# With Home & End keys
+[[keyboard.bindings]]
+key = "Home"
+chars = "\u0001"
+[[keyboard.bindings]]
+key = "End"
+chars = "\u0005"
 
-# Options + arrows to move by word
+# Option + arrows to move by word
 [[keyboard.bindings]]
 key = "ArrowLeft"
 mods = "Option"
-chars = "\u0002"
-
+chars = "\u001BB"
+# action = "SemanticLeft"
 [[keyboard.bindings]]
 key = "ArrowRight"
 mods = "Option"
-chars = "\u0006"
+chars = "\u001BF"
+# action = "SemanticRight"
 
 [[keyboard.bindings]]
 key = "Left"
@@ -135,15 +147,15 @@ key = "Right"
 mods = "Command"
 chars = "\u001BOF" # Cmd + Right → Move to line end
 
-[[keyboard.bindings]]
-key = "Left"
-mods = "Alt"
-chars = "\u001Bb" # Option + Left → Move back one word
+# [[keyboard.bindings]]
+# key = "Left"
+# mods = "Alt"
+# chars = "\u001Bb" # Option + Left → Move back one word
 
-[[keyboard.bindings]]
-key = "Right"
-mods = "Alt"
-chars = "\u001Bf" # Option + Right → Move forward one word
+# [[keyboard.bindings]]
+# key = "Right"
+# mods = "Alt"
+# chars = "\u001Bf" # Option + Right → Move forward one word
 
 # Scroll up/down (Cmd + Up/Down)
 # (For when you don't have a mouse/trackpad)
@@ -170,6 +182,20 @@ key = "D"
 mods = "Command"
 chars = "\u0002%" # Sends Ctrl+B % (tmux horizontal split)
 
+# [[keyboard.bindings]]
+# key = "T"
+# mods = "Control"
+# action = "CreateNewTab"
+
+# Tabs navigation
+[[keyboard.bindings]]
+key = "Tab"
+mods = "Control"
+action = "SelectNextTab"
+[[keyboard.bindings]]
+key = "Tab"
+mods = "Control|Shift"
+action = "SelectPreviousTab"
 # Switch tabs (Cmd + Shift + [ / ])
 # (For when using tmux or Zellij)
 [[keyboard.bindings]]
@@ -180,23 +206,6 @@ chars = "\u0002p"      # Ctrl+B p (previous tab in tmux)
 key = "RBracket"
 mods = "Command|Shift"
 chars = "\u0002n"      # Ctrl+B n (next tab in tmux)
-
-# Emoji Picker
-# Not native, but useful in some shells
-[[keyboard.bindings]]
-key = "Space"
-mods = "Command|Shift"
-chars = "\u0005"
-
-[[keyboard.bindings]]
-key = "Tab"
-mods = "Control"
-chars = "\u001b[27;5;9~"
-
-[[keyboard.bindings]]
-key = "Tab"
-mods = "Control|Shift"
-chars = "\u001b[27;6;9~"
 
 # Fast Pane Navigation (tmux + Alacritty)
 # [[keyboard.bindings]]
