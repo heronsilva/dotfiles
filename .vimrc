@@ -8,7 +8,7 @@
 " c: command-line
 " l: insert, command-line, regexp-search (and others. Collectively called "Lang-Arg" pseudo-mode)
 
-let mapleader = ','
+let mapleader = ';'
 
 call plug#begin('~/.vim/plugged')
 
