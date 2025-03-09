@@ -1,4 +1,4 @@
-source ~/.zsh/oh-my-zsh.zsh
+# source ~/.zsh/oh-my-zsh.zsh
 
 # Enable Powerlevel11k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -9,8 +9,9 @@ fi
 
 source $HOME/.zsh/options.zsh
 source $HOME/.zsh/functions.zsh
-source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/plugins.zsh
+source $HOME/.zsh/aliases.zsh
+source $HOME/.zsh/keybindings.zsh
 
 source_if_exists ~/.shared-resources.sh
 

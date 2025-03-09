@@ -36,3 +36,38 @@ function clear_scrollback_buffer {
 
 zle -N clear_scrollback_buffer
 bindkey '^L' clear_scrollback_buffer
+
+# nvim() {
+# 	# Resolve the absolute path of the first argument (if provided)
+# 	local target_dir="$1"
+#
+# 	if [ -d "$target_dir" ]; then
+# 		# If a directory is passed, use it as the working directory
+# 		command nvim --cmd "cd $(realpath "$target_dir")" "$@"
+# 	else
+# 		# If it's a file or no argument, just open normally
+# 		command nvim "$@"
+# 	fi
+# }
+
+
+compress() {
+  if [[ $# -lt 2 ]]; then
+    echo "Usage: compress <archive-name> <files...>"
+    return 1
+  fi
+
+  local archive="$1"
+  shift
+
+  case "${archive##*.}" in
+    tar)  tar cf "$archive" "$@" ;;
+    tar.gz|tgz)  tar czf "$archive" "$@" ;;
+    tar.bz2|tbz2) tar cjf "$archive" "$@" ;;
+    tar.xz|txz) tar cJf "$archive" "$@" ;;
+    zip)  zip -r "$archive" "$@" ;;
+    7z)   7z a "$archive" "$@" ;;
+    rar)  rar a "$archive" "$@" ;;
+    *) echo "Unsupported format: ${archive##*.}" ;;
+  esac
+}
