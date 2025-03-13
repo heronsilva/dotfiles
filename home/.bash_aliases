@@ -1,12 +1,3 @@
-# zypper
-# alias ref="sudo zypper ref"
-# alias zyp="sudo zypper install "
-# alias rem="sudo zypper remove --clean-deps "
-# alias up="sudo zypper update "
-# alias dup="sudo zypper dist-upgrade "
-# alias xablau="ref && dup"
-# alias zps="sudo zypper ps -s"
-
 # pacman
 alias pac="sudo pacman -Syyu --needed"
 alias aur="sudo aura -Akua"

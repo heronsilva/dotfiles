@@ -6,32 +6,42 @@
 - clean: ["~"]
 
 - link:
-    ~/.bash_aliases: .bash_aliases
-    ~/.bashrc: .bashrc
+    # shell
+    ~/.bashrc: home/.bashrc
+    ~/.bash_aliases: home/.bash_aliases
+    ~/.zshrc:
+      force: true
+      path: home/.zshrc
+    ~/.zsh:
+      force: true
+      path: home/.zsh
+    ~/.p10k.zsh:
+      force: true
+      path: .p10k.zsh
+
+    # terminal emulators
     ~/.config/alacritty:
       create: true
-      path: .config/alacritty
+      path: home/.config/alacritty
+    ~/.config/wezterm:
+      create: true
+      path: home/.config/wezterm
+
+    # vim
+    ~/.vimrc: home/.vimrc
+    ~/.ideavimrc: home/.ideavimrc
+    ~/.config/nvim:
+      create: true
+      path: .config/nvim
+
     # in case of deleting ~/.config/nvim, use this to relink:
     # mv ~/.config/nvim .config/
     # ln -s ~/Workbench/dotfiles/.config/nvim ~/.config/nvim
     # ls -l ~/.config | grep nvim # check if it was succesfully linked
-    ~/.config/nvim:
-      create: true
-      path: .config/nvim
-    ~/.gitconfig: .gitconfig
-    ~/.ideavimrc: .ideavimrc
+
+    ~/.gitconfig: home/.gitconfig
     ~/.inputrc: .inputrc
-    ~/.p10k.zsh:
-      force: true
-      path: .p10k.zsh
-    ~/.tmux.conf: .tmux.conf
-    ~/.vimrc: .vimrc
-    ~/.zsh:
-      force: true
-      path: home/.zsh
-    ~/.zshrc:
-      force: true
-      path: home/.zshrc
+    ~/.tmux.conf: home/.tmux.conf
 
 - create:
     - ~/Workbench
