@@ -42,6 +42,9 @@
     ~/.gitconfig: home/.gitconfig
     ~/.inputrc: .inputrc
     ~/.tmux.conf: home/.tmux.conf
+    ~/.Brewfile:
+      if: '[ `uname` = Darwin ]'
+      path: home/Brewfile
 
 - create:
     - ~/Workbench
