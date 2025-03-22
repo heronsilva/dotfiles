@@ -39,6 +39,7 @@
     # ln -s ~/Workbench/dotfiles/.config/nvim ~/.config/nvim
     # ls -l ~/.config | grep nvim # check if it was succesfully linked
 
+    ~/.config/mise: ./home/.config/mise
     ~/.gitconfig: home/.gitconfig
     ~/.inputrc: .inputrc
     ~/.tmux.conf: home/.tmux.conf

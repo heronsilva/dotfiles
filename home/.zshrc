@@ -20,3 +20,5 @@ if type fzf >/dev/null 2>&1; then
 fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval "$(mise activate zsh)"
