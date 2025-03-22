@@ -5,7 +5,13 @@ alias xablau="npm run dev:debug"
 alias xcurl="curl -o /dev/null -s -w %{time_total}"
 
 # .oh-my-zsh/lib/directories.zsh
-# Changing directory
+# Changing/making/removing directory
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+
+alias -- -='cd -'
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
@@ -15,6 +21,11 @@ alias -g ......='../../../../..'
 alias l='ls -lAh'
 alias ll='ls -lh'
 alias la='ls -lah'
+
+#
+unset alias cp
+unset alias mv
+unset alias rm
 
 # Docker Compose
 alias dco="docker compose"
