@@ -32,7 +32,7 @@
     ~/.ideavimrc: home/.ideavimrc
     ~/.config/nvim:
       create: true
-      path: .config/nvim
+      path: home/.config/nvim
 
     # in case of deleting ~/.config/nvim, use this to relink:
     # mv ~/.config/nvim .config/

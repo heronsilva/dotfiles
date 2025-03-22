@@ -1,0 +1,5 @@
+[tools]
+lua = "latest"
+node = "latest"
+python = "3"
+rust = "stable"
