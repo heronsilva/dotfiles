@@ -2,17 +2,20 @@ local keymap = vim.keymap
 
 -- delete sends text to 'black hole' instead of clipboard
 -- https://stackoverflow.com/q/54255
-keymap.set("n", "d", '"_d')
--- keymap.set("n", "x", '"_x')
+-- keymap.set("n", "d", '"_d')
 keymap.set("n", "dd", '"_dd')
 keymap.set("v", "d", '"_d')
-keymap.set("v", "x", '"_x"')
+keymap.set("n", "x", '"_x')
+-- keymap.set({ "n", "v" }, "x", '"_x"')
 
 keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 keymap.set("n", "<leader>w", ":w<CR>")
 keymap.set("i", "<leader>w", "<ESC>:w<CR>")
-keymap.set("n", "<leader>q", ":q<CR>")
+-- keymap.set("n", "<leader>q", ":q<CR>")
+keymap.set("", "<leader>q", function(bufnr)
+    Snacks.bufdelete(bufnr)
+end)
 keymap.set("n", "<leader>wq", ":wq<CR>")
 
 -- keymap.set("x", '\"+y', "y:call system(\"wl-copy\", @\")<cr>")
@@ -87,3 +90,5 @@ keymap.set("v", "y", "ygv<Esc>")
 
 -- Double slashes // should search for the currently selected string
 keymap.set("v", "//", 'y/\\V<C-R>"<CR>', { noremap = true, silent = false })
+
+keymap.set("n", "<C-S-G>", ":DiffviewOpen<CR>", { noremap = true })
