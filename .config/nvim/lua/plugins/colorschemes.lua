@@ -1,4 +1,4 @@
-local function persistent_colorscheme()
+local function select_colorscheme()
     local actions = require("telescope.actions")
     local action_state = require("telescope.actions.state")
     local builtin = require("telescope.builtin")
@@ -35,7 +35,7 @@ local function persistent_colorscheme()
     })
 end
 
-vim.keymap.set("n", "<leader>tt", persistent_colorscheme)
+vim.keymap.set("n", "<leader>tt", select_colorscheme)
 
 return {
     { "ellisonleao/gruvbox.nvim", name = "gruvbox" },
@@ -45,5 +45,18 @@ return {
     { "folke/tokyonight.nvim", name = "tokyonight" },
     { "rebelot/kanagawa.nvim", name = "kanagawa" },
     { "Mofiqul/dracula.nvim", name = "dracula" },
-    { "maxmx03/solarized.nvim", name = "solarized" },
+    {
+        "maxmx03/solarized.nvim",
+        name = "solarized",
+        config = function()
+            require("solarized").setup({
+                variant = "spring", -- "spring" | "summer" | "autumn" | "winter"
+                palette = "solarized", -- "solarized" | "selenized"
+                transparent = { enabled = true },
+            })
+        end,
+    },
+    { "EdenEast/nightfox.nvim" },
+    { "navarasu/onedark.nvim" },
+    { "sainnhe/everforest" },
 }
