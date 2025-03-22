@@ -14,7 +14,19 @@ return {
         -- Allows extra capabilities provided by nvim-cmp
         "hrsh7th/cmp-nvim-lsp",
     },
-    config = function()
+    opts = {
+        servers = {
+            tsserver = {
+                root_dir = function(fname)
+                    return require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git")(fname)
+                end,
+            },
+        },
+    },
+    config = function(_, opts)
+        local lspconfig = require("lspconfig")
+        local util = require("lspconfig.util")
+
         -- Brief aside: **What is LSP?**
         --
         -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -247,23 +259,24 @@ return {
         -- for you, so that they are available from within Neovim.
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
+            "black",
             "clang-format",
             "clangd",
             "eslint-lsp",
+            "isort",
             "lua-language-server",
             "prettierd",
             "pyright",
-            "isort",
-            "black",
             "ruff-lsp",
             "stylua",
+            "taplo",
             "typescript-language-server",
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
         require("mason-lspconfig").setup({
             ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-            automatic_installation = false,
+            automatic_installation = true,
             handlers = {
                 function(server_name)
                     local server = servers[server_name] or {}
@@ -276,19 +289,34 @@ return {
             },
         })
 
-        require("lspconfig").pyright.setup({
+        lspconfig.pyright.setup({
             capabilities = capabilities,
             filetypes = { "python" },
         })
 
-        require("lspconfig").clangd.setup({
+        lspconfig.clangd.setup({
             capabilities = capabilities,
             filetypes = { "c", "cpp", "objc", "objcpp" },
         })
 
-        require("lspconfig").taplo.setup({
+        lspconfig.taplo.setup({
             capabilities = capabilities,
             filetypes = { "toml" },
         })
+
+        -- lspconfig.eslint.setup({})
+        lspconfig.eslint.setup({
+            root_dir = function(fname)
+                return util.root_pattern(".eslintrc", ".eslintrc.json", "eslint.config.js", "eslint.config.mjs")(fname)
+                    or vim.fn.expand("~/Workbench") -- Use global ESLint if no project config
+            end,
+        })
+
+        lspconfig.prettier = {
+            root_dir = function(fname)
+                return util.root_pattern(".prettierrc", ".prettierrc.json", "prettier.config.js")(fname)
+                    or vim.fn.expand("~/Workbench") -- Use global Prettier if no project config
+            end,
+        }
     end,
 }

@@ -6,7 +6,10 @@ return {
         {
             "<leader>f",
             function()
-                require("conform").format({ async = true, lsp_format = "fallback" })
+                require("conform").format({
+                    async = true,
+                    lsp_format = "fallback",
+                })
             end,
             mode = "",
             desc = "[F]ormat buffer",
@@ -37,9 +40,13 @@ return {
 
                 c = { "clang_format" },
 
-                javascript = { "prettierd", "prettier" },
+                javascript = { "eslint_d", "prettierd", stop_after_first = true },
+                typescript = { "eslint_d", "prettierd", stop_after_first = true },
+                json = { "eslint_d", "prettierd", stop_after_first = true },
 
                 lua = { "stylua" },
+
+                markdown = { "prettierd", "prettier" },
 
                 python = function(bufnr)
                     if require("conform").get_formatter_info("ruff_format", bufnr).available then
@@ -48,12 +55,6 @@ return {
                         return { "isort", "black" }
                     end
                 end,
-
-                -- Conform can also run multiple formatters sequentially
-                -- python = { "isort", "black" },
-                --
-                -- You can use 'stop_after_first' to run the first available formatter from the list
-                -- javascript = { "prettierd", "prettier", stop_after_first = true },
             },
         })
     end,

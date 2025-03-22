@@ -1,36 +1,134 @@
-local is_single_file = vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 0
-
 local toggle_focus_keymap = "\\"
 local toggle_reveal_keymap = "<C-\\>"
 
-return {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-        -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-    },
-    cmd = "Neotree",
-    keys = not is_single_file and {
-        {
-            toggle_focus_keymap,
-            ":Neotree focus last<CR>",
-            desc = "NeoTree focus",
-            silent = true,
-        },
-        {
-            toggle_reveal_keymap,
-            ":Neotree reveal last<CR>",
-            desc = "NeoTree reveal",
-            silent = true,
-        },
-    } or {},
-    config = function()
-        local utils = require("neo-tree.utils")
+local cmd_prefix = ""
+if Heron.ROOT ~= nil then
+    cmd_prefix = "dir=" .. Heron.ROOT .. " "
+end
 
-        if not is_single_file then
+local full_focus_cmd = ":Neotree focus last " .. cmd_prefix .. "<CR>"
+local full_reveal_cmd = ":Neotree reveal last " .. cmd_prefix .. "<CR>"
+
+return {
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+        },
+        cmd = "Neotree toggle",
+        keys = {
+            {
+                toggle_focus_keymap,
+                full_focus_cmd,
+                -- function()
+                --     print("neotree toggle focus: " .. Heron.ROOT)
+                --     require("neo-tree.command").execute({
+                --         toggle = false,
+                --         dir = Heron.ROOT,
+                --     })
+                -- end,
+                desc = "NeoTree focus",
+                silent = true,
+            },
+            {
+                toggle_reveal_keymap,
+                full_reveal_cmd,
+                -- function()
+                --     print("neotree toggle reveal: " .. Heron.ROOT)
+                --     require("neo-tree.command").execute({
+                --         toggle = true,
+                --         dir = Heron.ROOT,
+                --     })
+                -- end,
+                desc = "NeoTree reveal",
+                silent = true,
+            },
+        },
+        deactivate = function()
+            vim.cmd([[Neotree close]])
+        end,
+        -- init = function()
+        --     -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
+        --     -- because `cwd` is not set up properly.
+        --     vim.api.nvim_create_autocmd("BufEnter", {
+        --         group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
+        --         desc = "Start Neo-tree with directory",
+        --         once = true,
+        --         callback = function()
+        --             if package.loaded["neo-tree"] then
+        --                 return
+        --             else
+        --                 local stats = vim.uv.fs_stat(vim.fn.argv(0))
+        --                 if stats and stats.type == "directory" then
+        --                     require("neo-tree")
+        --                 end
+        --             end
+        --         end,
+        --     })
+        -- end,
+
+        config = function(_, opts)
+            --#region from lazy
+            local function on_move(data)
+                Snacks.rename.on_rename_file(data.source, data.destination)
+            end
+
+            local events = require("neo-tree.events")
+            opts.event_handlers = opts.event_handlers or {}
+            vim.list_extend(opts.event_handlers, {
+                { event = events.FILE_MOVED, handler = on_move },
+                { event = events.FILE_RENAMED, handler = on_move },
+            })
+            vim.api.nvim_create_autocmd("TermClose", {
+                pattern = "*lazygit",
+                callback = function()
+                    if package.loaded["neo-tree.sources.git_status"] then
+                        require("neo-tree.sources.git_status").refresh()
+                    end
+                end,
+            })
+            -- #endregion from lazy
+
+            local utils = require("neo-tree.utils")
+            local sources_manager = require("neo-tree.sources.manager")
+            local ui_inputs = require("neo-tree.ui.inputs")
+
+            local function handle_move_to_trash(state)
+                local path = state.tree:get_node().path
+                local _, name = utils.split_path(path)
+
+                local msg = string.format("Are you sure you want to trash '%s'?", name)
+
+                ui_inputs.confirm(msg, function(confirmed)
+                    if not confirmed then
+                        return
+                    end
+
+                    vim.fn.system({ "trash", vim.fn.fnameescape(path) })
+
+                    sources_manager.refresh(state.name)
+                end)
+            end
+
+            local function handle_move_to_trash_in_visual_mode(state, selected_nodes)
+                local msg = "Are you sure you want to trash " .. #selected_nodes .. " files ?"
+
+                ui_inputs.confirm(msg, function(confirmed)
+                    if not confirmed then
+                        return
+                    end
+                    for _, node in ipairs(selected_nodes) do
+                        vim.fn.system({ "trash", vim.fn.fnameescape(node.path) })
+                    end
+
+                    sources_manager.refresh(state.name)
+                end)
+            end
+
             require("neo-tree").setup({
                 -- If a user has a sources list it will replace this one.
                 -- Only sources listed here will be loaded.
@@ -39,8 +137,8 @@ return {
                 sources = { "filesystem", "buffers", "git_status", "document_symbols" },
                 add_blank_line_at_top = false, -- Add a blank line at the top of the tree.
                 auto_clean_after_session_restore = true, -- Automatically clean up broken neo-tree buffers saved in sessions
-                -- auto_restore_session_experimental = true, -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1365
-                --                                        -- https://github.com/nvim-neo-tree/neo-tree.nvim/pull/1366
+                auto_restore_session_experimental = true, -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1365
+                --                                           -- https://github.com/nvim-neo-tree/neo-tree.nvim/pull/1366
                 close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
                 default_source = "filesystem", -- you can choose a specific source `last` here which indicates the last used source
                 enable_diagnostics = true,
@@ -78,9 +176,9 @@ return {
                 use_default_mappings = true,
                 -- source_selector provides clickable tabs to switch between sources.
                 source_selector = {
-                    winbar = true, -- toggle to show selector on winbar
-                    statusline = true, -- toggle to show selector on statusline
-                    show_scrolled_off_parent_node = true, -- this will replace the tabs with the parent path
+                    winbar = false, -- toggle to show selector on winbar
+                    statusline = false, -- toggle to show selector on statusline
+                    show_scrolled_off_parent_node = false, -- this will replace the tabs with the parent path
                     -- of the top visible node when scrolled down.
                     sources = {
                         { source = "filesystem" },
@@ -120,7 +218,7 @@ return {
                     highlight_separator = "NeoTreeTabSeparatorInactive",
                     highlight_separator_active = "NeoTreeTabSeparatorActive",
                 },
-                event_handlers = {},
+                event_handlers = opts.event_handlers,
                 default_component_configs = {
                     container = {
                         enable_character_fade = true,
@@ -237,6 +335,7 @@ return {
                         text_format = " ➛ %s", -- %s will be replaced with the symlink target's path.
                     },
                 },
+
                 renderers = {
                     directory = {
                         { "indent" },
@@ -304,6 +403,12 @@ return {
                         { "name" },
                         { "bufnr" },
                     },
+                    custom = {
+                        { "indent" },
+                        { "icon", default = "C" },
+                        { "custom" },
+                        { "name" },
+                    },
                 },
                 nesting_rules = {},
                 -- Global custom commands that will be available in all sources (if not overridden in `opts[source_name].commands`)
@@ -321,8 +426,8 @@ return {
                 -- see `:h neo-tree-custom-commands-global`
                 commands = {}, -- A list of functions
 
-                window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-                    -- possible options. These can also be functions that return these options.
+                window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for possible options.
+                    --        These can also be functions that return these options.
                     position = "right", -- left, right, top, bottom, float, current
                     width = 48, -- applies to left and right positions
                     height = 15, -- applies to top and bottom positions
@@ -369,8 +474,8 @@ return {
                                 -- title = "Neo-tree Preview", -- You can define a custom title for the preview floating window.
                             },
                         },
-                        ["<C-f>"] = { "scroll_preview", config = { direction = -10 } },
-                        ["<C-b>"] = { "scroll_preview", config = { direction = 10 } },
+                        ["<C-d>"] = { "scroll_preview", config = { direction = -10 } },
+                        ["<C-u>"] = { "scroll_preview", config = { direction = 10 } },
                         ["l"] = "focus_preview",
                         ["S"] = "open_split",
                         -- ["S"] = "split_with_window_picker",
@@ -384,7 +489,7 @@ return {
                         ["w"] = "open_with_window_picker",
                         ["C"] = "close_node",
                         ["z"] = "close_all_nodes",
-                        --["Z"] = "expand_all_nodes",
+                        ["Z"] = "expand_all_nodes",
                         ["R"] = "refresh",
                         ["a"] = {
                             "add",
@@ -394,8 +499,7 @@ return {
                             },
                         },
                         ["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
-                        -- ["d"] = "delete",
-                        ["d"] = "trash",
+                        ["d"] = "trash", -- or "delete"
                         ["r"] = "rename",
                         ["b"] = "rename_basename",
                         ["y"] = "copy_to_clipboard",
@@ -409,7 +513,6 @@ return {
                         [toggle_focus_keymap] = function()
                             vim.cmd("wincmd h") -- focus the left window
                         end,
-                        -- ["\\"] = function() vim.cmd("wincmd h") end -- focus the left window
                         ["?"] = "show_help",
                         ["<"] = "prev_source",
                         [">"] = "next_source",
@@ -418,39 +521,8 @@ return {
                 filesystem = {
                     commands = {
                         ---@see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/202#issuecomment-2538240927
-                        trash = function(state)
-                            local inputs = require("neo-tree.ui.inputs")
-                            local path = state.tree:get_node().path
-                            local _, name = utils.split_path(path)
-
-                            local msg = string.format("Are you sure you want to trash '%s'?", name)
-
-                            inputs.confirm(msg, function(confirmed)
-                                if not confirmed then
-                                    return
-                                end
-
-                                vim.fn.system({ "trash", vim.fn.fnameescape(path) })
-
-                                require("neo-tree.sources.manager").refresh(state.name)
-                            end)
-                        end,
-
-                        trash_visual_mode = function(state, selected_nodes)
-                            local inputs = require("neo-tree.ui.inputs")
-                            local msg = "Are you sure you want to trash " .. #selected_nodes .. " files ?"
-
-                            inputs.confirm(msg, function(confirmed)
-                                if not confirmed then
-                                    return
-                                end
-                                for _, node in ipairs(selected_nodes) do
-                                    vim.fn.system({ "trash", vim.fn.fnameescape(node.path) })
-                                end
-
-                                require("neo-tree.sources.manager").refresh(state.name)
-                            end)
-                        end,
+                        trash = handle_move_to_trash,
+                        trash_visual_mode = handle_move_to_trash_in_visual_mode,
                     },
                     window = {
                         mappings = {
@@ -490,7 +562,7 @@ return {
                     -- "never"  means directory scans are never async.
                     scan_mode = "shallow", -- "shallow": Don't scan into directories to detect possible empty directory a priori
                     -- "deep": Scan into directories to detect empty or grouped empty directories a priori.
-                    bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+                    bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
                     cwd_target = {
                         sidebar = "tab", -- sidebar is when position = left or right
                         current = "window", -- current is when position = current
@@ -583,7 +655,7 @@ return {
                     -- instead of relying on nvim autocmd events.
                 },
                 buffers = {
-                    bind_to_cwd = true,
+                    bind_to_cwd = false,
                     follow_current_file = {
                         enabled = true, -- This will find and focus the file in the active buffer every time
                         --              -- the current file is changed while the tree is open.
@@ -712,34 +784,18 @@ return {
                         -- Macro = { icon = ' ', hl = 'Macro' },
                     },
                 },
-                -- example = {
-                --     renderers = {
-                --         custom = {
-                --             { "indent" },
-                --             { "icon", default = "C" },
-                --             { "custom" },
-                --             { "name" },
-                --         },
-                --     },
-                --     window = {
-                --         mappings = {
-                --             ["<cr>"] = "toggle_node",
-                --             ["<C-e>"] = "example_command",
-                --             ["d"] = "show_debug_info",
-                --         },
-                --     },
-                -- },
 
                 -- open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- Prevent replacing these buffers
             })
-
-            -- if not is_single_file then
-            -- vim.api.nvim_create_autocmd("VimEnter", { command = "Neotree show last" })
-            -- end
-        end
-
-        -- Open Neotree on VimEnter
-        -- vim.api.nvim_create_autocmd("VimEnter", { command = "set nornu nonu | Neotree show" })
-        -- vim.api.nvim_create_autocmd("BufEnter", { command = "set rnu nu" })
-    end,
+        end,
+    },
+    -- {
+    --     "s1n7ax/nvim-window-picker",
+    --     name = "window-picker",
+    --     event = "VeryLazy",
+    --     version = "2.*",
+    --     config = function()
+    --         require("window-picker").setup()
+    --     end,
+    -- },
 }
