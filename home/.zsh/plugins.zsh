@@ -20,8 +20,9 @@ zinit light zsh-users/zsh-completions
 # zinit light MichaelAquilina/zsh-you-should-use
 
 # OMZ plugins and utilities
-zinit snippet OMZ::plugins/git/git.plugin.zsh
-zinit snippet OMZ::plugins/docker/docker.plugin.zsh
+is_installed git && zinit snippet OMZ::plugins/git/git.plugin.zsh
+is_installed docker && not_alias docker && zinit snippet OMZ::plugins/docker/docker.plugin.zsh
+# is_installed podman && zinit snippet OMZ::plugins/podman/podman.plugin.zsh
 
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh

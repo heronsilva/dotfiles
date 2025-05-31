@@ -9,12 +9,12 @@
     # shell
     ~/.bashrc: home/.bashrc
     ~/.bash_aliases: home/.bash_aliases
-    ~/.zshrc:
-      force: true
-      path: home/.zshrc
     ~/.zsh:
       force: true
       path: home/.zsh
+    ~/.zshrc:
+      force: true
+      path: home/.zsh/.zshrc
     ~/.p10k.zsh:
       force: true
       path: .p10k.zsh
@@ -34,12 +34,17 @@
       create: true
       path: home/.config/nvim
 
+    # scripts
+    ~/.local/bin/yt-wpp: scripts/yt-wpp.sh
+
     # in case of deleting ~/.config/nvim, use this to relink:
     # mv ~/.config/nvim .config/
     # ln -s ~/Workbench/dotfiles/.config/nvim ~/.config/nvim
     # ls -l ~/.config | grep nvim # check if it was succesfully linked
 
-    ~/.config/mise: ./home/.config/mise
+    ~/.config/mise:
+      create: true
+      path: ./home/.config/mise
     ~/.gitconfig: home/.gitconfig
     ~/.inputrc: .inputrc
     ~/.tmux.conf: home/.tmux.conf

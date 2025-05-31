@@ -1,5 +1,4 @@
-autoload -Uz compinit
-compinit
+autoload -Uz compinit; compinit
 
 # Simple autojump implementation
 # https://duganchen.ca/the-simplest-autojump-implementation-for-zsh/
@@ -19,6 +18,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"  # Makes the suggestion text lighter.
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(builtin)  # You can customize what to highlight.
+HISTORY_IGNORE="(l ls la ll xablau)"
 # HISTORY_IGNORE="(l ls la ll)"
 # ZSH_AUTOSUGGEST_HISTORY_IGNORE="()"
 

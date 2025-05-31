@@ -6,6 +6,33 @@ source_if_exists() {
 	fi
 }
 
+# True if $1 is an executable in $PATH
+# Works in both {ba,z}sh
+# is_bin_in_path
+function is_installed {
+	if [[ -n $ZSH_VERSION ]]; then
+		# echo "is installed"
+		builtin whence -p "$1" &> /dev/null
+	else  # bash:
+		# echo "not installed ://"
+		builtin type -P "$1" &> /dev/null
+	fi
+}
+
+function not_alias {
+	# local command_type="$(builtin whence -w docker)"
+	# if [[ "$command_type" == "alias"]] then
+	# 	echo  "is alias"
+	# 	# return 1
+	# fi
+
+	if [[ $(builtin whence -w $1) == "$1: alias" ]] then
+		return 1
+	fi
+
+	return 0
+}
+
 copy() {
 	if [[ "${XDG_SESSION_TYPE}" == "wayland" ]]; then
 		$1 | wl-copy -n
@@ -71,3 +98,33 @@ compress() {
     *) echo "Unsupported format: ${archive##*.}" ;;
   esac
 }
+
+urlencode() {
+  python3 -c "import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read().strip() if sys.stdin.isatty() == False else sys.argv[1]))" "$@"
+}
+
+urldecode() {
+  python3 -c "import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read().strip() if sys.stdin.isatty() == False else sys.argv[1]))" "$@"
+}
+
+
+addcmd() {
+  local command="$1"
+  local description="$2"
+  local file="$HOME/.zsh/useful_commands.zsh"
+
+  if [[ -z "$command" || -z "$description" ]]; then
+	echo "Usage: addcmd <command> <description>"
+	return 1
+  fi
+
+  if grep -q "$command" "$file"; then
+	echo "Command already exists in $file"
+	return 0
+  fi
+
+  echo "# $description" >> "$file"
+  echo "$command" >> "$file"
+  echo "\n\n" >> "$file"
+  echo "Command added to $file"
+  return 0}

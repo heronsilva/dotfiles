@@ -12,8 +12,9 @@ source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/plugins.zsh
 source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/keybindings.zsh
+source $HOME/.zsh/exports.zsh
 
-source_if_exists ~/.shared-resources.sh
+# source_if_exists ~/.shared-resources.sh
 
 if type fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
@@ -21,4 +22,4 @@ fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-eval "$(mise activate zsh)"
+eval "$(~/.local/bin/mise activate zsh)"

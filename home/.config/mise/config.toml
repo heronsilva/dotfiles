@@ -1,5 +1,15 @@
 [tools]
 lua = "latest"
-node = "latest"
-python = "3"
+node = "22"
+python = "latest"
+ruby = "latest"
 rust = "stable"
+usage = "latest"
+
+[hooks]
+enter = "mise install"
+
+[settings]
+experimental = true
+
+jobs = 4
