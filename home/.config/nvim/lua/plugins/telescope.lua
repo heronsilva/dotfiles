@@ -101,6 +101,9 @@ return {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown(),
                 },
+                persisted = {
+                    layout_config = { width = 0.55, height = 0.55 },
+                },
             },
         })
 
@@ -108,6 +111,7 @@ return {
         pcall(require("telescope").load_extension, "fzf")
         pcall(require("telescope").load_extension, "ui-select")
         pcall(require("telescope").load_extension, "harpoon")
+        require("telescope").load_extension("persisted")
 
         -- Keymaps
         -- See `:help telescope.builtin`

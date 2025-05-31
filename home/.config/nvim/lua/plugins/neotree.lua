@@ -2,12 +2,14 @@ local toggle_focus_keymap = "\\"
 local toggle_reveal_keymap = "<C-\\>"
 
 local cmd_prefix = ""
-if Heron.ROOT ~= nil then
-    cmd_prefix = "dir=" .. Heron.ROOT .. " "
-end
+-- if Heron.ROOT ~= nil then
+--     cmd_prefix = "dir=" .. Heron.ROOT .. " "
+-- end
 
-local full_focus_cmd = ":Neotree focus last " .. cmd_prefix .. "<CR>"
-local full_reveal_cmd = ":Neotree reveal last " .. cmd_prefix .. "<CR>"
+-- local full_focus_cmd = ":Neotree focus last" .. cmd_prefix .. "<CR>"
+-- local full_reveal_cmd = ":Neotree reveal last" .. cmd_prefix .. "<CR>"
+local full_focus_cmd = ":Neotree focus last<CR>"
+local full_reveal_cmd = ":Neotree reveal last<CR>"
 
 return {
     {
@@ -19,7 +21,7 @@ return {
             "MunifTanjim/nui.nvim",
             -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
         },
-        cmd = "Neotree toggle",
+        cmd = "Neotree focus",
         keys = {
             {
                 toggle_focus_keymap,
@@ -51,25 +53,25 @@ return {
         deactivate = function()
             vim.cmd([[Neotree close]])
         end,
-        -- init = function()
-        --     -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
-        --     -- because `cwd` is not set up properly.
-        --     vim.api.nvim_create_autocmd("BufEnter", {
-        --         group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
-        --         desc = "Start Neo-tree with directory",
-        --         once = true,
-        --         callback = function()
-        --             if package.loaded["neo-tree"] then
-        --                 return
-        --             else
-        --                 local stats = vim.uv.fs_stat(vim.fn.argv(0))
-        --                 if stats and stats.type == "directory" then
-        --                     require("neo-tree")
-        --                 end
-        --             end
-        --         end,
-        --     })
-        -- end,
+        init = function()
+            -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
+            -- because `cwd` is not set up properly.
+            vim.api.nvim_create_autocmd("BufEnter", {
+                group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
+                desc = "Start Neo-tree with directory",
+                once = true,
+                callback = function()
+                    if package.loaded["neo-tree"] then
+                        return
+                    else
+                        local stats = vim.uv.fs_stat(vim.fn.argv(0))
+                        if stats and stats.type == "directory" then
+                            require("neo-tree")
+                        end
+                    end
+                end,
+            })
+        end,
 
         config = function(_, opts)
             --#region from lazy
@@ -139,7 +141,7 @@ return {
                 auto_clean_after_session_restore = true, -- Automatically clean up broken neo-tree buffers saved in sessions
                 auto_restore_session_experimental = true, -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1365
                 --                                           -- https://github.com/nvim-neo-tree/neo-tree.nvim/pull/1366
-                close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+                close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
                 default_source = "filesystem", -- you can choose a specific source `last` here which indicates the last used source
                 enable_diagnostics = true,
                 enable_git_status = true,
@@ -162,7 +164,7 @@ return {
                 log_to_file = false, -- true, false, "/path/to/file.log", use :NeoTreeLogs to show the file
                 open_files_in_last_window = true, -- false = open files in top left window
                 open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" }, -- when opening files, do not use windows containing these filetypes or buftypes
-                open_files_using_relative_paths = false,
+                open_files_using_relative_paths = true,
                 -- popup_border_style is for input and confirmation dialogs.
                 -- Configurtaion of floating window is done in the individual source sections.
                 -- "NC" is a special style that works well with NormalNC set
@@ -501,7 +503,7 @@ return {
                         ["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
                         ["d"] = "trash", -- or "delete"
                         ["r"] = "rename",
-                        ["b"] = "rename_basename",
+                        ["b"] = "close_node",
                         ["y"] = "copy_to_clipboard",
                         ["x"] = "cut_to_clipboard",
                         ["p"] = "paste_from_clipboard",
@@ -646,11 +648,9 @@ return {
                         --               -- the current file is changed while the tree is open.
                         leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
                     },
-                    hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-                    -- in whatever position is specified in window.position
-                    -- "open_current",-- netrw disabled, opening a directory opens within the
-                    -- window like netrw would, regardless of window.position
-                    -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
+                    hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree in whatever position is specified in window.position
+                    --                                      -- "open_current",-- netrw disabled, opening a directory opens within the window like netrw would, regardless of window.position
+                    --                                      -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
                     use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
                     -- instead of relying on nvim autocmd events.
                 },

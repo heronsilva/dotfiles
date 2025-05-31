@@ -92,3 +92,13 @@ keymap.set("v", "y", "ygv<Esc>")
 keymap.set("v", "//", 'y/\\V<C-R>"<CR>', { noremap = true, silent = false })
 
 keymap.set("n", "<C-S-G>", ":DiffviewOpen<CR>", { noremap = true })
+
+-- vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = false })
+keymap.set("i", "jk", "<Esc>", { noremap = false })
+
+-- https://www.reddit.com/r/neovim/comments/1707ppd/comment/k3j499u/
+-- keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Center cursor after moving down half-page" })
+-- keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Center cursor after moving down half-page" })
+
+keymap.set("n", "<C-j>", "3jzz")
+keymap.set("n", "<C-k>", "3kzz")
