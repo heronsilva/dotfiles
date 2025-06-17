@@ -62,3 +62,19 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - description: install vim plug
+      command: |
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    - description: "Compile copyfile.swift"
+      command: |
+        swiftc ./bin/copyfile.swift -o ./bin/copyfile
+    - description: "Link copyfile to ~/.local/bin"
+      command: |
+        ln -sf $(pwd)/bin/copyfile ~/.local/bin/copyfile
+
+    - description: "Install Homebrew packages"
+      command: |
+        if command -v brew >/dev/null; then
+          brew bundle --file ./home/Brewfile
+        fi
