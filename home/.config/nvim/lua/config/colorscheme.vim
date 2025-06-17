@@ -1,1 +1,2 @@
-catppuccin-frappe
+light=gruvbox
+dark=catppuccin-frappe
