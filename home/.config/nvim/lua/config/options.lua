@@ -87,7 +87,8 @@ opt.relativenumber = true -- Relative line numbers
 opt.ruler = false -- Disable the default ruler
 opt.scrolloff = 4 -- Lines of context
 -- opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.opt.sessionoptions = "buffers,tabpages,curdir,folds,help,winsize,winpos,terminal,localoptions"
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -100,7 +101,7 @@ opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
-opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+-- opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
@@ -132,93 +133,93 @@ vim.g.maplocalleader = ";"
 
 vim.g.have_nerd_font = true
 
-vim.opt.cul = true
-vim.opt.number = true
-vim.opt.relativenumber = true
--- vim.opt.linebreak
+opt.cul = true
+opt.number = true
+opt.relativenumber = true
+-- opt.linebreak
 -- Enable break indent
-vim.opt.breakindent = true
-vim.opt.showbreak = "+++"
--- vim.opt.textwidth=100
--- vim.opt.nowrap
--- vim.opt.formatoptions=
-vim.opt.showmatch = true
-vim.opt.virtualedit = "block"
+opt.breakindent = true
+opt.showbreak = "+++"
+-- opt.textwidth=100
+-- opt.nowrap
+-- opt.formatoptions=
+opt.showmatch = true
+opt.virtualedit = "block"
 
-vim.opt.hlsearch = false
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
-vim.opt.incsearch = true
+opt.hlsearch = false
+opt.smartcase = true
+opt.ignorecase = true
+opt.incsearch = true
 
-vim.opt.autoindent = true
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.smartindent = true
-vim.opt.smarttab = true
-vim.opt.softtabstop = 2
-vim.opt.ruler = true
-vim.opt.tabstop = 2
+opt.autoindent = true
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.smartindent = true
+opt.smarttab = true
+opt.softtabstop = 2
+opt.ruler = true
+opt.tabstop = 2
 
-vim.opt.undolevels = 1000
-vim.opt.backspace = "indent,eol,start"
+opt.undolevels = 1000
+opt.backspace = "indent,eol,start"
 
 -- Enable system clipboard integration. See: https://stackoverflow.com/a/27928635
--- vim.opt.clipboard = unnamed
+-- opt.clipboard = unnamed
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 -- vim.schedule(function()
-vim.opt.clipboard = "unnamedplus"
+opt.clipboard = "unnamedplus"
 -- end)
 
 -- recommended settings from http://vim.wikia.com/wiki/Example_vimrc
--- vim.opt.nocompatible = true
-vim.opt.wildmenu = true
--- vim.opt.nomodeline = true
--- vim.opt.nostartofline = true
-vim.opt.confirm = true
-vim.opt.mouse = "a"
+-- opt.nocompatible = true
+opt.wildmenu = true
+-- opt.nomodeline = true
+-- opt.nostartofline = true
+opt.confirm = true
+opt.mouse = "a"
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+opt.cursorline = true
 
 -- From set.lua
-vim.opt.nu = true
-vim.opt.relativenumber = true
+opt.nu = true
+opt.relativenumber = true
 
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
 
-vim.opt.smartindent = true
+opt.smartindent = true
 
-vim.opt.wrap = false
+opt.wrap = false
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.swapfile = false
+opt.backup = false
+opt.undofile = true
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
-vim.opt.incsearch = true
+opt.incsearch = true
 
-vim.opt.termguicolors = true
+opt.termguicolors = true
 
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+opt.signcolumn = "yes"
+opt.isfname:append("@-@")
 
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+opt.updatetime = 250
+opt.timeoutlen = 300
 
-vim.opt.colorcolumn = "120"
+opt.colorcolumn = "120"
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = {
+opt.list = true
+opt.listchars = {
     -- lead = "·",
     trail = "⋅",
     tab = "» ",
@@ -228,33 +229,33 @@ vim.opt.listchars = {
 }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+opt.inccommand = "split"
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+opt.scrolloff = 10
 
 -- Code folding settings for treesitter and ufo plugins
-vim.o.foldcolumn = "1"
-vim.opt.foldenable = true
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
+opt.foldcolumn = "1"
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldlevelstart = 99
 vim.g.markdown_folding = 1
 
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Enable break indent
-vim.o.breakindent = true
+opt.breakindent = true
 
 --
 
--- vim.o.autochdir = true
+-- opt.autochdir = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Update buffer if changed externally
 -- See: https://www.reddit.com/r/neovim/comments/1flr88l/how_to_update_buffer_content_when_file_changes/
-vim.o.autoread = true
-vim.o.shortmess = "I"
+opt.autoread = true
+opt.shortmess = "I"
 
 vim.g.vscode = 1

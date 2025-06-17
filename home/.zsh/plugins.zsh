@@ -29,6 +29,8 @@ zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 zinit snippet OMZ::plugins/globalias/globalias.plugin.zsh # expands glob expressions, subcommands and aliases
 
+zinit snippet OMZ::plugins/mise/mise.plugin.zsh
+
 # Performance-related
 zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
 zinit light zdharma-continuum/zinit-annex-bin-gem-node

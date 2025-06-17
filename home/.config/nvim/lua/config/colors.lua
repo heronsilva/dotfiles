@@ -8,8 +8,15 @@ if file then
     -- Apply the colorscheme if it exists
     if colorscheme and colorscheme ~= "" then
         vim.schedule(function()
-            -- vim.o.background = "light"
-            -- vim.cmd("set background=dark")
+            local hour = tonumber(os.date("%H"))
+            if hour >= 7 and hour < 17 then
+                colorscheme = "catppuccin-frappe"
+                -- vim.opt.background = "light"
+                -- vim.cmd("set background=light")
+            else
+                colorscheme = "catppuccin-frappe"
+            end
+
             local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
             if not ok then
                 vim.notify("Failed to load colorscheme: " .. colorscheme, vim.log.levels.ERROR)
