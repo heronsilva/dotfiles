@@ -110,8 +110,8 @@ return {
         -- Enable Telescope extensions if they are installed
         pcall(require("telescope").load_extension, "fzf")
         pcall(require("telescope").load_extension, "ui-select")
-        pcall(require("telescope").load_extension, "harpoon")
-        require("telescope").load_extension("persisted")
+        -- pcall(require("telescope").load_extension, "harpoon")
+        pcall(require("telescope").load_extension, "persisted")
 
         -- Keymaps
         -- See `:help telescope.builtin`
@@ -173,8 +173,8 @@ return {
         end, { desc = "[S]earch [/] in Open Files" })
 
         -- Load extensions
-        -- require("telescope").load_extension("cmdline")
-        -- require("telescope").load_extension("noice")
+        require("telescope").load_extension("cmdline")
+        require("telescope").load_extension("noice")
         -- require("telescope").load_extension("possession")
     end,
 }

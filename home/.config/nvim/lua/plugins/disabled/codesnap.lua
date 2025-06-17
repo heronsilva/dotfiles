@@ -1,4 +1,6 @@
 return {
+    enabled = false,
+
     "mistricky/codesnap.nvim",
     build = "make build_generator",
     keys = {

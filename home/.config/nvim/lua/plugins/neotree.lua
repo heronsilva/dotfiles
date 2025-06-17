@@ -19,8 +19,8 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
         },
+
         cmd = "Neotree focus",
         keys = {
             {
@@ -50,9 +50,11 @@ return {
                 silent = true,
             },
         },
+
         deactivate = function()
             vim.cmd([[Neotree close]])
         end,
+
         init = function()
             -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
             -- because `cwd` is not set up properly.
@@ -281,8 +283,8 @@ return {
                         highlight = "NeoTreeModified",
                     },
                     name = {
-                        trailing_slash = false,
-                        highlight_opened_files = false, -- Requires `enable_opened_markers = true`.
+                        trailing_slash = true,
+                        highlight_opened_files = true, -- Requires `enable_opened_markers = true`.
                         -- Take values in { false (no highlight), true (only loaded),
                         -- "all" (both loaded and unloaded)}. For more information,
                         -- see the `show_unloaded` config of the `buffers` source.
@@ -789,13 +791,4 @@ return {
             })
         end,
     },
-    -- {
-    --     "s1n7ax/nvim-window-picker",
-    --     name = "window-picker",
-    --     event = "VeryLazy",
-    --     version = "2.*",
-    --     config = function()
-    --         require("window-picker").setup()
-    --     end,
-    -- },
 }

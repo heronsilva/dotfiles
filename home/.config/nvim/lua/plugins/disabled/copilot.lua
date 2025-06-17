@@ -1,4 +1,6 @@
 return {
+    enabled = false,
+
     "github/copilot.vim",
     event = "VeryLazy",
     cmd = "Copilot", -- this makes copilot to start as disabled

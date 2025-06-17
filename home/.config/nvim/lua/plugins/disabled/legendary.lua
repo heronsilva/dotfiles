@@ -1,4 +1,6 @@
 return {
+    enabled = false,
+
     "mrjones2014/legendary.nvim",
     dependencies = { "kkharji/sqlite.lua" }, -- Optional, for persistence
     event = "VeryLazy",

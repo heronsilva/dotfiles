@@ -1,4 +1,6 @@
 return {
+    enabled = false,
+
     "folke/zen-mode.nvim",
     config = function()
         vim.keymap.set("n", "<leader>zz", function()

@@ -2,6 +2,8 @@
 -- This works with LSP, Treesitter, and regexp matching to find the other
 -- instances.
 return {
+    enabled = false,
+
     -- disable snacks words
     { "snacks.nvim", opts = { words = { enabled = false } } },
 

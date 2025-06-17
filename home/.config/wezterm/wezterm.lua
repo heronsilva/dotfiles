@@ -15,16 +15,16 @@ local act = wezterm.action
 ---@class Config: WeztermConfig
 local config = wezterm.config_builder()
 
-local function scheme_for_appearance(appearance)
-    if appearance:find("Dark") then
-        return "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
-    else
-        return "Catppuccin Latte"
-    end
+local function get_color_scheme()
+    return "nord"
+    -- if wezterm.gui.get_appearance():find("Dark") then
+    --     return "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
+    -- else
+    --     return "Catppuccin Latte"
+    -- end
 end
 
--- config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
-config.color_scheme = "nord"
+config.color_scheme = get_color_scheme()
 -- config.font = wezterm.font("Iosevka Nerd Font Mono" --[[{,  weight = "Bold", italic = true } --]])
 
 config.font = wezterm.font_with_fallback({
@@ -85,7 +85,7 @@ config.keys = {
 
     -- 🖥️ Terminal Management
     {
-        key = "K",
+        key = "k",
         mods = "CMD",
         action = act.Multiple({
             act.ClearScrollback("ScrollbackAndViewport"),
@@ -125,6 +125,13 @@ config.keys = {
     --         features.theme_switcher(window, pane)
     --     end),
     -- },
+    { key = "f", mods = "CMD", action = wezterm.action.Search({ CaseInSensitiveString = "" }) },
+
+    {
+        key = "g",
+        mods = "CMD",
+        action = wezterm.action.ActivateCommandPalette,
+    },
 }
 
 config.window_frame = {
@@ -153,5 +160,63 @@ config.window_frame = {
 --         },
 --     },
 -- }
+
+config.default_cwd = "/Users/heron/Workbench/local-env/repos/"
+
+config.selection_word_boundary = " \t\n{}[]()\"'`~,;:│=&!%^<>"
+
+-- config.mouse_bindings = {
+--     -- Disable default click on hyperlinks (and prevent copy on select)
+--     {
+--         event = { Up = { streak = 1, button = "Left" } },
+--         mods = "NONE",
+--         action = act.Nop,
+--     },
+--
+--     -- Enable link opening with CTRL (or CMD on macOS)
+--     {
+--         event = { Up = { streak = 1, button = "Left" } },
+--         mods = "CTRL",
+--         action = act.OpenLinkAtMouseCursor,
+--     },
+--     {
+--         event = { Up = { streak = 1, button = "Left" } },
+--         mods = "CMD",
+--         action = act.OpenLinkAtMouseCursor,
+--     },
+-- }
+
+-- Disable copy on single/double/triple click select
+config.mouse_bindings = {
+    {
+        event = { Up = { streak = 1, button = "Left" } },
+        mods = "NONE",
+        action = act.Nop,
+    },
+    {
+        event = { Up = { streak = 2, button = "Left" } },
+        mods = "NONE",
+        action = act.Nop,
+    },
+    {
+        event = { Up = { streak = 3, button = "Left" } },
+        mods = "NONE",
+        action = act.Nop,
+    },
+    {
+        event = { Up = { streak = 1, button = "Left" } },
+        mods = "CMD",
+        action = act.OpenLinkAtMouseCursor,
+    },
+    {
+        event = { Up = { streak = 1, button = "Left" } },
+        mods = "CTRL",
+        action = act.OpenLinkAtMouseCursor,
+    },
+}
+
+config.enable_scroll_bar = true
+config.automatically_reload_config = true
+-- config.enable_command_palette = true
 
 return config

@@ -1,4 +1,5 @@
 return {
+    enabled = false,
     "christoomey/vim-tmux-navigator",
     vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<CR>"),
     vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>"),

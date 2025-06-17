@@ -1,4 +1,6 @@
 local which_key_config = { -- Useful plugin to show you pending keybinds.
+    enabled = false,
+
     "folke/which-key.nvim",
     event = "VeryLazy", -- Sets the loading event to 'VimEnter'
     keys = {
