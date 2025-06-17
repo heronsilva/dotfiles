@@ -2,3 +2,5 @@
 .idea
 .config/alacritty/themes
 .nvim
+
+bin/copyfile
