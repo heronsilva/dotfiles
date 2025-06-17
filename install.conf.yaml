@@ -9,6 +9,7 @@
     # shell
     ~/.bashrc: home/.bashrc
     ~/.bash_aliases: home/.bash_aliases
+
     ~/.zsh:
       force: true
       path: home/.zsh
@@ -51,6 +52,9 @@
     ~/.Brewfile:
       if: '[ `uname` = Darwin ]'
       path: home/Brewfile
+    ~/.finicky.ts:
+      if: '[ `uname` = Darwin ]'
+      path: home/finicky.ts
 
 - create:
     - ~/Workbench
