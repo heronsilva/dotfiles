@@ -1,4 +1,3 @@
-# source ~/.zsh/oh-my-zsh.zsh
 
 # Enable Powerlevel11k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -6,6 +5,8 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+typeset -U path  # Make sure PATH entries are unique
 
 source $HOME/.zsh/options.zsh
 source $HOME/.zsh/functions.zsh
@@ -22,4 +23,12 @@ fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-eval "$(~/.local/bin/mise activate zsh)"
+is_installed mise && eval "$($HOME/.local/bin/mise activate zsh)"
+is_installed direnv && eval "$(direnv hook zsh)"
+path+=$(yarn global bin)
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(~/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

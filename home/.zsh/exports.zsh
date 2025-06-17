@@ -1,5 +1,8 @@
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-export PATH="$HOME/.local/bin:$PATH"
-
+path+=(
+	"$HOME/.local/bin"
+	"$HOME/.docker/bin"
+	"/opt/homebrew/opt/libpq/bin"
+)

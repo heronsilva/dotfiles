@@ -57,6 +57,9 @@ alias dcpull="$docker_cmd compose pull"
 alias dcstart="$docker_cmd compose start"
 alias dck="$docker_cmd compose kill"
 
-alias xablau="brew update && brew upgrade; brew cleanup;"
+alias //="brew update && brew upgrade; brew cleanup;"
 alias wezrc="nvim ~/.config/wezterm/wezterm.lua"
 
+#
+# Airtm
+alias le="local-env-palkia"
