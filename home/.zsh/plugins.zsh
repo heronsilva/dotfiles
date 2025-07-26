@@ -7,6 +7,8 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Load zinit annexes
 zinit snippet OMZ::lib/compfix.zsh
 zinit snippet OMZ::lib/clipboard.zsh
+zinit snippet OMZ::lib/git.zsh
+
 zinit light zdharma-continuum/zinit-annex-as-monitor
 zinit light zdharma-continuum/zinit-annex-patch-dl
 zinit light zdharma-continuum/zinit-annex-rust
