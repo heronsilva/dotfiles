@@ -60,6 +60,7 @@ alias dcstart="$docker_cmd compose start"
 alias dck="$docker_cmd compose kill"
 
 alias //="brew update && brew upgrade; brew cleanup;"
+alias vimrc="vim ~/.vimrc"
 alias wezrc="nvim ~/.config/wezterm/wezterm.lua"
 
 #
