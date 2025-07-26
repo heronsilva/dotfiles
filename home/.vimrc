@@ -17,6 +17,7 @@ Plug 'romainl/vim-cool' " https://vi.stackexchange.com/a/13378
 Plug 'habamax/vim-gruvbit'
 Plug 'easymotion/vim-easymotion'
 Plug 'arcticicestudio/nord-vim'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
@@ -78,6 +79,11 @@ vnoremap d "_d
 nnoremap <leader>w :w<CR>
 inoremap <leader>w <Esc>:w<CR>
 nnoremap <leader>q :q<CR>
+nnoremap <leader>wq :wq<CR>
+
+" increment/decrement
+nnoremap + <C-a>
+nnoremap - <C-x>
 
 " select all text
 nnoremap <C-A> ggVG
@@ -86,26 +92,56 @@ xnoremap "+y y:call system("wl-copy", @")<cr>
 nnoremap "+p :let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', '', 'g')<cr>p
 nnoremap "*p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>p
 
-" BEGIN vim-easymotion
-map <Leader> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-" END vim-easymotion
-
 " Get current direcory in command mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" clipboard copy-paste (requires vim to be compiled with +clipboard)
+xnoremap y "+y
+nnoremap p "+p
+
+" move selected lines up/down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" keep cursor centered
+nnoremap J mzJ`z
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" paste over selection without overwriting default register
+xnoremap <leader>p "_dP
+
+" substitute word under cursor
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+vnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+
+" C-c as Esc
+inoremap <C-c> <Esc>
+
+" clear search highlighting on Esc
+nnoremap <Esc> :nohlsearch<CR>
+
+" double Esc
+nnoremap <Esc> <Esc><Esc>
+inoremap <Esc> <Esc><Esc>
+vnoremap <Esc> <Esc><Esc>
+
+" Previous/Next cursor positions
+nnoremap <C-p> <C-o>
+nnoremap <C-n> <C-i>
+
+" preserve selection when yanking in visual mode
+vnoremap y ygv<Esc>
+
+" visual search using selected text
+vnoremap // y/\V<C-R>"<CR>
+
+" exit insert mode with 'jk'
+inoremap jk <Esc>
+inoremap kj <Esc>
+
+" move down/up 3 lines and center
+nnoremap <C-j> 3jzz
+nnoremap <C-k> 3kzz
