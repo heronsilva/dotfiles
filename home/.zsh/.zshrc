@@ -22,7 +22,7 @@ command -v fzf >/dev/null && source <(fzf --zsh)
 
 is_installed mise && eval "$($HOME/.local/bin/mise activate zsh)"
 is_installed direnv && eval "$(direnv hook zsh)"
-path+=$(yarn global bin)
+is_installed yarn path+=$(yarn global bin)
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(~/.docker/completions $fpath)

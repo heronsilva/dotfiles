@@ -19,7 +19,7 @@ function is_installed {
 	fi
 }
 
-function not_alias {
+function is_not_alias {
 	# local command_type="$(builtin whence -w docker)"
 	# if [[ "$command_type" == "alias"]] then
 	# 	echo  "is alias"
