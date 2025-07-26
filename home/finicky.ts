@@ -3,38 +3,35 @@ import type {
   FinickyConfig,
 } from "/Applications/Finicky.app/Contents/Resources/finicky.d.ts";
 
-const handler: BrowserHandler = {
+const WORK_BROWSER = "Google Chrome";
+const PERSONAL_BROWSER = "Brave Browser";
+
+const workHandler: BrowserHandler = {
   match: (url: URL, { opener }) => {
-    return url.host.includes("airtech");
+    const workDomains = [
+      "airtm.slack.com",
+      "airtech.awsapps.com",
+      "docs.google.com",
+      "airtech.atlassian.net",
+    ];
+    return (
+      url.host.includes("airtech") ||
+      workDomains.some((domain) => url.host.includes(domain))
+    );
   },
-  browser: "Google Chrome",
+  browser: WORK_BROWSER,
+};
+
+const personalHandler: BrowserHandler = {
+  match: (url: URL, { opener }) => {
+    const personalDomains = ["x.com/*", "*instagram.com/*", "*.gov.br*"];
+    return personalDomains.some((domain) => url.host.includes(domain));
+  },
+  browser: PERSONAL_BROWSER,
 };
 
 export default {
-  defaultBrowser: "Google Chrome",
-
+  defaultBrowser: PERSONAL_BROWSER,
   rewrite: [],
-
-  handlers: [
-    handler,
-
-    // Airtm
-    { match: "airtm.slack.com/*", browser: "Google Chrome" },
-    { match: "airtech.awsapps.com/*", browser: "Google Chrome" },
-    { match: "docs.google.com/*", browser: "Google Chrome" },
-    { match: "airtech.atlassian.net/*", browser: "Google Chrome" },
-
-    // Personal
-    { match: "x.com/*", browser: "Brave Browser" },
-    { match: "*instagram.com/*", browser: "Brave Browser" },
-
-    // Example with args
-    // {
-    //   match: "",
-    //   browser: (url, options) => ({
-    //     name: "Brave Browser",
-    //     args: ["-n", "--args", "--incognito", "--profile-directory=Profile 3", url.href],
-    //   }),
-    // },
-  ],
+  handlers: [workHandler, personalHandler],
 } satisfies FinickyConfig;
