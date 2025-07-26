@@ -133,7 +133,7 @@
           done
         fi
 
-    - description: "Install mise from official website"
+    - description: "Install mise"
       command: |
         if ! command -v mise >/dev/null 2>&1; then
           echo "Installing mise..."
@@ -146,20 +146,14 @@
           # Verify installation
           if command -v mise >/dev/null 2>&1; then
             echo "mise installed successfully"
+            echo "Installing mise tools..."
+
+            mise install
           else
             echo "mise installation may have failed, but anyways..."
           fi
         else
           echo "mise is already installed, skipping..."
-        fi
-
-    - description: "Install mise tools"
-      command: |
-        if command -v mise >/dev/null 2>&1; then
-          echo "Installing mise tools..."
-          mise install
-        else
-          echo "mise not found, skipping tool installation"
         fi
 
     - description: "Configure PM2 logrotate"
