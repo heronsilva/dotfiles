@@ -7,7 +7,9 @@
 
 - link:
     # shell
-    ~/.bashrc: home/.bashrc
+    ~/.bashrc:
+      path: home/.bashrc
+      force: true
     ~/.bash_aliases: home/.bash_aliases
 
     ~/.zsh:
@@ -83,6 +85,81 @@
       command: |
         if [[ "$(uname)" == "Darwin" && -x "$(command -v brew)" ]]; then
           brew bundle --file ./home/Brewfile
+        fi
+
+    - description: "Install Linux packages (Ubuntu/Debian)"
+      command: |
+        if [[ "$(uname)" == "Linux" && -f /etc/debian_version ]]; then
+          echo "Installing packages for Ubuntu/Debian..."
+
+          # Update package list
+          sudo apt update
+
+          # Install packages from list (skip comments and empty lines)
+          # Use || true to continue even if some packages fail
+          grep -v '^#' ./home/packages-apt.txt | grep -v '^$' | while read package; do
+            echo "Installing $package..."
+            sudo apt install -y "$package" || echo "Failed to install $package, anyways..."
+          done
+        fi
+
+    - description: "Install Linux packages (Fedora/RHEL/CentOS)"
+      command: |
+        if [[ "$(uname)" == "Linux" && -f /etc/redhat-release ]]; then
+          echo "Installing packages for Fedora/RHEL/CentOS..."
+
+          # Update package list
+          sudo dnf update
+
+          # Install packages from list (skip comments and empty lines)
+          grep -v '^#' ./home/packages-dnf.txt | grep -v '^$' | while read package; do
+            echo "Installing $package..."
+            sudo dnf install -y "$package" || echo "Failed to install $package, anyways..."
+          done
+        fi
+
+    - description: "Install Linux packages (Arch/Manjaro)"
+      command: |
+        if [[ "$(uname)" == "Linux" && -f /etc/arch-release ]]; then
+          echo "Installing packages for Arch/Manjaro..."
+
+          # Update package database
+          sudo pacman -Sy
+
+          # Install packages from list (skip comments and empty lines)
+          grep -v '^#' ./home/packages-pacman.txt | grep -v '^$' | while read package; do
+            echo "Installing $package..."
+            sudo pacman -S --noconfirm "$package" || echo "Failed to install $package, anyways..."
+          done
+        fi
+
+    - description: "Install mise from official website"
+      command: |
+        if ! command -v mise >/dev/null 2>&1; then
+          echo "Installing mise..."
+
+          curl https://mise.run | sh
+
+          # Add mise to PATH for current session
+          export PATH="$HOME/.local/bin:$PATH"
+
+          # Verify installation
+          if command -v mise >/dev/null 2>&1; then
+            echo "mise installed successfully"
+          else
+            echo "mise installation may have failed, but anyways..."
+          fi
+        else
+          echo "mise is already installed, skipping..."
+        fi
+
+    - description: "Install mise tools"
+      command: |
+        if command -v mise >/dev/null 2>&1; then
+          echo "Installing mise tools..."
+          mise install
+        else
+          echo "mise not found, skipping tool installation"
         fi
 
     - description: "Configure PM2 logrotate"

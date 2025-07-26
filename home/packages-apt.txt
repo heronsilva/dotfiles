@@ -1,0 +1,37 @@
+# Core utilities
+bat
+fd-find
+fzf
+ripgrep
+tree
+unzip
+htop
+ncdu
+jq
+curl
+wget
+git
+gnupg
+tmux
+vim
+neovim
+
+# Development tools
+build-essential
+libyaml-dev
+openjdk-11-jdk
+
+# Media and utilities
+ffmpeg
+yt-dlp
+
+# System monitoring
+bpytop
+
+# Network tools
+telnet
+
+# Additional useful tools
+trash-cli
+direnv
+gawk
