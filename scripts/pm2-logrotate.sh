@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "[dotfiles:pm2] Setting up pm2-logrotate..."
 
 if ! command -v pm2 &>/dev/null; then
@@ -6,7 +7,7 @@ if ! command -v pm2 &>/dev/null; then
   exit 0
 fi
 
-if ! pm2 module:list | grep -q 'pm2-logrotate'; then
+if ! pm2 list | grep -q 'pm2-logrotate'; then
   pm2 install pm2-logrotate
 fi
 

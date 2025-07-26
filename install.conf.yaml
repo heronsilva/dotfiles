@@ -84,3 +84,6 @@
         if [[ "$(uname)" == "Darwin" && -x "$(command -v brew)" ]]; then
           brew bundle --file ./home/Brewfile
         fi
+
+    - description: "Configure PM2 logrotate"
+      command: "sh ./scripts/pm2-logrotate.sh"
