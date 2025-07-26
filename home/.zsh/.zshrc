@@ -15,11 +15,8 @@ source $HOME/.zsh/aliases.zsh
 source $HOME/.zsh/keybindings.zsh
 source $HOME/.zsh/exports.zsh
 
-# source_if_exists ~/.shared-resources.sh
-
-if type fzf >/dev/null 2>&1; then
-  source <(fzf --zsh)
-fi
+command -v fzf >/dev/null && source <(fzf --zsh)
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

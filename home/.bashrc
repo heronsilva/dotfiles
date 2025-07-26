@@ -72,3 +72,5 @@ export TERM=xterm
 export SCM_GIT_SHOW_DETAILS=true
 export HISTIGNORE=c:cd:..:ref:up:dup:xablau:zps
 export HISTCONTROL=ignoreboth:erasedups
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
