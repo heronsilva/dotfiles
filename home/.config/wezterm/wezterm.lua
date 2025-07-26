@@ -8,40 +8,33 @@
 ---@field colors table
 ---@field keys table
 local wezterm = require("wezterm")
-local features = require("./features")
 
+local features = require("./features")
 local act = wezterm.action
 
 ---@class Config: WeztermConfig
 local config = wezterm.config_builder()
 
 local function get_color_scheme()
-    return "nord"
-    -- if wezterm.gui.get_appearance():find("Dark") then
-    --     return "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
-    -- else
-    --     return "Catppuccin Latte"
-    -- end
+    if wezterm.gui.get_appearance():find("Dark") then
+        return "Catppuccin Frappe"
+    else
+        return "Solarized Light (Gogh)"
+    end
 end
+
+config.automatically_reload_config = true
+config.scrollback_lines = 100000
 
 config.color_scheme = get_color_scheme()
 -- config.font = wezterm.font("Iosevka Nerd Font Mono" --[[{,  weight = "Bold", italic = true } --]])
-
-config.font = wezterm.font_with_fallback({
-    "Iosevka Nerd Font Mono",
-    "IosevkaTermSlab Nerd Font Mono",
-    "JetBrainsMono Nerd Font",
-    "SpaceMono Nerd Font Propo",
-    "monospace",
-})
-config.font_size = 14.0
+config.font = wezterm.font_with_fallback({ "Iosevka Nerd Font Mono", "Monaco", "monospace" })
+config.font_size = 14
 
 -- 🌙 Transparent background with blur
 -- config.window_background_opacity = 0.95 -- 90% opacity (adjust to your liking)
 -- config.macos_window_background_blur = 55 -- Adds a blurred effect
 
--- 🎨 Colors (Dracula, Gruvbox, Catppuccin, etc.)
--- config.color_scheme = "Catppuccin Mocha" -- Install via: https://wezfurlong.org/wezterm/colorschemes/index.html
 -- config.enable_tab_bar = false -- Hide ugly default tab bar
 config.tab_bar_at_bottom = true -- Moves the tab bar to the bottom
 config.use_fancy_tab_bar = false -- Enables a sleek, modern tab bar
@@ -161,7 +154,9 @@ config.window_frame = {
 --     },
 -- }
 
-config.default_cwd = "/Users/heron/Workbench/local-env/repos/"
+local home_dir = wezterm.home_dir
+local target_dir = home_dir .. "/Workbench/airtm/local-env/repos"
+config.default_cwd = wezterm.run_child_process({"test", "-d", target_dir}) and target_dir or home_dir .. "/Workbench"
 
 config.selection_word_boundary = " \t\n{}[]()\"'`~,;:│=&!%^<>"
 
@@ -214,9 +209,5 @@ config.mouse_bindings = {
         action = act.OpenLinkAtMouseCursor,
     },
 }
-
-config.enable_scroll_bar = true
-config.automatically_reload_config = true
--- config.enable_command_palette = true
 
 return config
