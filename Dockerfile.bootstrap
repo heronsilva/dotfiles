@@ -1,0 +1,48 @@
+FROM ubuntu:22.04
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install minimal packages needed for bootstrap
+RUN apt update && apt install -y \
+    sudo \
+    git \
+    curl \
+    wget \
+    && apt autoremove \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create test user
+RUN useradd -m -s /bin/bash testuser
+RUN usermod -aG sudo testuser
+RUN echo 'testuser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN echo 'testuser:123' | chpasswd
+
+# Switch to test user
+USER testuser
+
+# Create home directory structure
+RUN mkdir -p /home/testuser/Workbench
+
+WORKDIR /home/testuser
+
+# Copy bootstrap script from source (simulating download)
+COPY --chown=testuser:testuser bootstrap /tmp/bootstrap
+RUN chmod +x /tmp/bootstrap
+
+# Create a simple test script to simulate remote bootstrap
+RUN echo '#!/bin/bash' > /home/testuser/test-bootstrap.sh && \
+    echo 'echo "Testing bootstrap script..."' >> /home/testuser/test-bootstrap.sh && \
+    echo 'echo "This simulates downloading and running the bootstrap script"' >> /home/testuser/test-bootstrap.sh && \
+    echo 'echo "In real usage, you would run:"' >> /home/testuser/test-bootstrap.sh && \
+    echo 'echo "curl -fsSL https://raw.githubusercontent.com/heronsilva/dotfiles/main/bootstrap | bash"' >> /home/testuser/test-bootstrap.sh && \
+    echo 'echo ""' >> /home/testuser/test-bootstrap.sh && \
+    echo 'echo "For testing, we will run the local bootstrap script:"' >> /home/testuser/test-bootstrap.sh && \
+    echo '/tmp/bootstrap' >> /home/testuser/test-bootstrap.sh && \
+    chmod +x /home/testuser/test-bootstrap.sh
+
+# Set environment variable to use local source for testing
+ENV REPO_URL="file:///tmp/dotfiles-source"
+
+# Default command shows instructions
+CMD ["/bin/bash", "-c", "echo 'Bootstrap test container ready!' && echo 'Run: ./test-bootstrap.sh to test the bootstrap process' && echo 'Or run: /tmp/bootstrap directly' && /bin/bash"]

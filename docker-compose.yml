@@ -1,0 +1,49 @@
+services:
+  manjaro:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dotfiles-manjaro
+    volumes:
+      - .:/home/heron/Workbench/dotfiles
+    working_dir: /home/heron/Workbench/dotfiles
+    command: /bin/zsh
+    stdin_open: true
+    tty: true
+
+  ubuntu:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    container_name: dotfiles-ubuntu
+    volumes:
+      - .:/home/heron/Workbench/dotfiles
+    working_dir: /home/heron/Workbench/dotfiles
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+
+  fedora:
+    build:
+      context: .
+      dockerfile: Dockerfile.fedora
+    container_name: dotfiles-fedora
+    volumes:
+      - .:/home/heron/Workbench/dotfiles
+    working_dir: /home/heron/Workbench/dotfiles
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+
+  # Test _bootstrap script (remote installation simulation)
+  bootstrap-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.bootstrap
+    container_name: dotfiles-_bootstrap
+    volumes:
+      - .:/tmp/dotfiles-source
+    working_dir: /home/testuser
+    command: /bin/bash
+    stdin_open: true
+    tty: true

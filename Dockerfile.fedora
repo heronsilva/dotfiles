@@ -1,0 +1,46 @@
+FROM fedora:38
+
+# Install basic packages and setup sudo
+RUN dnf update -y && dnf install -y \
+    sudo \
+    git \
+    zsh \
+    vim \
+    curl \
+    wget \
+    gcc \
+    gcc-c++ \
+    make \
+    python3 \
+    python3-pip \
+    && dnf clean all
+
+# Create user and setup sudo
+RUN useradd -m -s /bin/bash heron
+RUN usermod -aG wheel heron
+RUN echo 'heron ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN echo 'heron:123' | chpasswd
+
+# Switch to user
+USER heron
+
+# Create necessary directories
+RUN mkdir -p /home/heron/Workbench
+RUN mkdir -p /home/heron/.local/bin
+
+# Copy dotfiles
+COPY --chown=heron:heron ./ /home/heron/Workbench/dotfiles
+
+WORKDIR /home/heron/Workbench/dotfiles
+
+# Make scripts executable
+RUN chmod +x ./install ./bootstrap
+
+# Test the installation
+RUN ./install
+
+# Verify installation
+RUN if [ -f /home/heron/.zshrc ]; then echo "Fedora dotfiles installation completed successfully"; fi
+
+# Default command
+CMD ["/bin/bash"]
