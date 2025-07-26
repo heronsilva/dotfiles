@@ -1,4 +1,4 @@
-export VISUAL=nvim
+export VISUAL=$(which vim)
 export EDITOR="$VISUAL"
 
 path+=(

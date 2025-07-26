@@ -1,20 +1,41 @@
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
 [user]
   name = Heron Silva
   email = 'heron.code@outlook.com'
 [core]
   excludesfile = ~/.gitignore_global
-  editor = nvim
+  editor = vim
   autocrlf = input
-	fileMode = false
+  fileMode = false
+  pager = diff-so-fancy | less --tabs=4 -RFX
+
+[diff]
+    tool = vimdiff
+    colorMoved = default
+
+[merge]
+    tool = vimdiff
+
+[fetch]
+  prune = true
+
+[push]
+    default = current
+
+[pull]
+  rebase = true
+
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+
 [alias]
   undo = reset --mixed HEAD^
+  unst = reset HEAD --
 
   # https://stackoverflow.com/questions/8475448/find-merge-commit-which-includes-a-specific-commit
   find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
