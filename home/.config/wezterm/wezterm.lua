@@ -17,7 +17,7 @@ local config = wezterm.config_builder()
 
 local function get_color_scheme()
     if wezterm.gui.get_appearance():find("Dark") then
-        return "Catppuccin Frappe"
+        return "Nord (Gogh)"
     else
         return "Solarized Light (Gogh)"
     end
@@ -156,7 +156,7 @@ config.window_frame = {
 
 local home_dir = wezterm.home_dir
 local target_dir = home_dir .. "/Workbench/airtm/local-env/repos"
-config.default_cwd = wezterm.run_child_process({"test", "-d", target_dir}) and target_dir or home_dir .. "/Workbench"
+config.default_cwd = wezterm.run_child_process({ "test", "-d", target_dir }) and target_dir or home_dir .. "/Workbench"
 
 config.selection_word_boundary = " \t\n{}[]()\"'`~,;:│=&!%^<>"
 
