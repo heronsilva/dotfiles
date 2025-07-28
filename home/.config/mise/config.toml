@@ -1,6 +1,6 @@
 [tools]
 lua = "5"
-node = "18.20.8"
+node = "latest"
 python = "3"
 ruby = "3"
 rust = "stable"
