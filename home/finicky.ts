@@ -13,6 +13,7 @@ const workHandler: BrowserHandler = {
       "airtech.awsapps.com",
       "docs.google.com",
       "airtech.atlassian.net",
+      "bitbucket.org",
     ];
     return (
       url.host.includes("airtech") ||
