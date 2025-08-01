@@ -46,10 +46,44 @@ ffprobe -v error -show_entries stream=index,codec_type,codec_name \
 # list node_modules directories (recursively)
 find . -name 'node_modules' -type d -prune
 
-
-
 # remove node_modules directories (recursively)
 find . -name 'node_modules' -type d -prune -exec trash '{}' +
 
+# Find device IP in the local network
+ipconfig getifaddr en0  # mac os  # en0 = wifi; if on cable: en1 or en2
+ip a                    # linux
 
+# recursively list all files with common compression extensions
+find . -type f \( \
+  -iname "*.zip" -o \
+  -iname "*.tar" -o \
+  -iname "*.tar.gz" -o \
+  -iname "*.tgz" -o \
+  -iname "*.tar.bz2" -o \
+  -iname "*.tbz2" -o \
+  -iname "*.tar.xz" -o \
+  -iname "*.txz" -o \
+  -iname "*.7z" -o \
+  -iname "*.rar" \
+\)
+
+# specify dirs to ignore that are direct children of CWD
+find . \( \
+  -path "./node_modules" -o \
+  -path "./.git" -o \
+  -path "./dist" \
+\) -prune -o -type f \( \
+  -iname "*.zip" -o \
+  -iname "*.tar" -o \
+  -iname "*.tar.gz" -o \
+  -iname "*.tgz" -o \
+  -iname "*.gz" -o \
+  -iname "*.bz2" -o \
+  -iname "*.xz" -o \
+  -iname "*.7z" -o \
+  -iname "*.rar" -o \
+  -iname "*.zst" -o \
+  -iname "*.lz" -o \
+  -iname "*.lzma" \
+\) -print
 
