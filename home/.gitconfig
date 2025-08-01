@@ -2,13 +2,20 @@
   defaultBranch = main
 
 [user]
-  name = Heron Silva
-  email = 'heron.code@outlook.com'
+  name = Heron S. Silva
+  email = heron.code@outlook.com
+
+[includeIf "gitdir:~/Workbench/"]
+  path = ~/Workbench/.gitconfig
+
+[includeIf "gitdir:~/Workbench/airtm/"]
+  path = ~/Workbench/airtm/.gitconfig
+
 [core]
   excludesfile = ~/.gitignore_global
   editor = vim
   autocrlf = input
-  fileMode = false
+	fileMode = false
   pager = diff-so-fancy | less --tabs=4 -RFX
 
 [diff]
@@ -45,5 +52,3 @@
   clean-branches = "!f() { for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do git branch -D $branch; done }; f"
 
   tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
-[pull]
-  rebase = true
