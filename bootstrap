@@ -192,6 +192,17 @@ run_installation() {
     log_success "Dotfiles installation complete"
 }
 
+# Apply macOS system defaults
+apply_macos_defaults() {
+    log_info "Applying macOS system defaults..."
+
+    if [[ -f "$DOTFILES_DIR/defaults/macos.sh" ]]; then
+        bash "$DOTFILES_DIR/defaults/macos.sh"
+    else
+        log_warning "macOS defaults script not found, skipping..."
+    fi
+}
+
 # Main installation function
 main() {
     log_info "🚀 Starting dotfiles installation..."
@@ -224,6 +235,11 @@ main() {
 
     # Run installation
     run_installation
+
+    # Apply OS-specific configurations
+    if [[ $os == "macos" ]]; then
+        apply_macos_defaults
+    fi
 
     log_success "🎉 Dotfiles installation completed successfully!"
     log_info "Backup created at: $BACKUP_DIR"
