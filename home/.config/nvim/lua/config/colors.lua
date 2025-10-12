@@ -9,11 +9,11 @@ if file then
     if colorscheme and colorscheme ~= "" then
         vim.schedule(function()
             local hour = tonumber(os.date("%H"))
-            if hour >= 7 and hour < 17 then
-                colorscheme = "catppuccin-frappe"
-                -- vim.opt.background = "light"
-                -- vim.cmd("set background=light")
+            if hour >= 7 and hour < 18 then
+                vim.opt.background = "light"
+                colorscheme = "solarized"
             else
+                vim.opt.background = "dark"
                 colorscheme = "catppuccin-frappe"
             end
 

@@ -50,7 +50,7 @@ return {
         name = "solarized",
         config = function()
             require("solarized").setup({
-                variant = "spring", -- "spring" | "summer" | "autumn" | "winter"
+                variant = "winter", -- "spring" | "summer" | "autumn" | "winter"
                 palette = "solarized", -- "solarized" | "selenized"
                 transparent = { enabled = true },
             })
@@ -60,4 +60,5 @@ return {
     { "navarasu/onedark.nvim" },
     { "sainnhe/everforest" },
     { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
+    { "rebelot/kanagawa.nvim" },
 }
