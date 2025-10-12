@@ -4,7 +4,7 @@ node = "latest"
 python = "3"
 ruby = "3"
 rust = "stable"
-usage = "2.1.1"
+usage = "2.3.2"
 
 [hooks]
 enter = "mise install"
