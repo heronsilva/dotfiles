@@ -87,3 +87,11 @@ find . \( \
   -iname "*.lzma" \
 \) -print
 
+# run from ~: copy a file preserving its path
+rsync -RL ~/.local/bin/code /Volumes/ExternalDrive/backup/
+
+# run from ~: alternative: preserve symlink instead of the target
+rsync -R ~/.local/bin/code /Volumes/ExternalDrive/backup/
+
+# compress-mov-videos
+ffmpeg -i "input.mov" -c:v libx264 -crf 28 -preset fast -c:a aac -b:a 128k "output.mov"
