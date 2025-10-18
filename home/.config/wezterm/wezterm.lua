@@ -37,8 +37,8 @@ config.font_size = 14
 
 -- config.enable_tab_bar = false -- Hide ugly default tab bar
 config.tab_bar_at_bottom = true -- Moves the tab bar to the bottom
-config.use_fancy_tab_bar = false -- Enables a sleek, modern tab bar
-config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = true -- Enables a sleek, modern tab bar
+config.hide_tab_bar_if_only_one_tab = false
 
 -- Persistent Sessions (Like Tmux)
 -- Auto-save all open tabs and panes so they reopen exactly as you left them:
@@ -111,13 +111,13 @@ config.keys = {
     { key = "Home", mods = "", action = act.SendKey({ key = "A", mods = "CTRL" }) },
     { key = "End", mods = "", action = act.SendKey({ key = "E", mods = "CTRL" }) },
 
-    -- {
-    --     key = "K",
-    --     mods = "CMD|SHIFT",
-    --     action = wezterm.action_callback(function(window, pane)
-    --         features.theme_switcher(window, pane)
-    --     end),
-    -- },
+    {
+        key = "K",
+        mods = "CMD|SHIFT",
+        action = wezterm.action_callback(function(window, pane)
+            features.theme_switcher(window, pane)
+        end),
+    },
     { key = "f", mods = "CMD", action = wezterm.action.Search({ CaseInSensitiveString = "" }) },
 
     {
@@ -131,32 +131,84 @@ config.window_frame = {
     font_size = 13.0, -- Adjust tab font size
 }
 
---  config.colors = {
---     tab_bar = {
---         background = "#1E1E2E", -- Dark background for the tab bar
---
---         active_tab = {
---             bg_color = "#89B4FA", -- Blue background for the active tab
---             fg_color = "#1E1E2E", -- Dark text for contrast
---             intensity = "Bold",
---         },
---
---         inactive_tab = {
---             bg_color = "#313244", -- Darker inactive tab
---             fg_color = "#BAC2DE", -- Light text
---         },
---
---         inactive_tab_hover = {
---             bg_color = "#45475A", -- Slightly lighter when hovered
---             fg_color = "#FFFFFF", -- White text when hovered
---             italic = true,
---         },
---     },
--- }
-
 local home_dir = wezterm.home_dir
-local target_dir = home_dir .. "/Workbench/airtm/local-env/repos"
-config.default_cwd = wezterm.run_child_process({ "test", "-d", target_dir }) and target_dir or home_dir .. "/Workbench"
+-- local target_dir = home_dir .. "/Workbench/airtm/local-env/repos"
+local target_dir = home_dir .. "/Workbench"
+config.default_cwd = wezterm.run_child_process({
+    "test",
+    "-d",
+    target_dir,
+}) and target_dir or home_dir .. "/Workbench"
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+    local pane = tab.active_pane
+
+    -- Extract process name
+    local process = string.match(pane.foreground_process_name or "", "([^/\\]+)$") or ""
+
+    -- Get current working directory
+    local cwd_uri = pane.current_working_dir
+    local cwd = cwd_uri and cwd_uri.file_path or ""
+
+    -- Replace home dir with ~
+    local home = wezterm.home_dir
+    cwd = cwd:gsub("^" .. home, "~")
+
+    -- Smart truncate the path
+    local function smart_shorten(path)
+        local parts = {}
+        for part in path:gmatch("[^/]+") do
+            table.insert(parts, part)
+        end
+
+        if #parts <= 2 then
+            return table.concat(parts, "/") -- nothing to shorten
+        end
+
+        local shortened = {}
+        for i = 1, #parts - 1 do
+            if i == 1 then
+                table.insert(shortened, parts[i]) -- keep '~' or leading part
+            else
+                table.insert(shortened, parts[i]:sub(1, 1)) -- first letter only
+            end
+        end
+
+        -- Keep the last part fully
+        table.insert(shortened, parts[#parts])
+
+        return table.concat(shortened, "/")
+    end
+
+    local short_cwd = smart_shorten(cwd)
+
+    -- Optional: Add emojis or icons based on process
+    local icon = ""
+    if process:find("nvim") then
+        icon = "👨‍💻"
+        process = ""
+    elseif process:find("ssh") then
+        icon = "🔒"
+    elseif process:find("git") then
+        icon = "🔀" -- 🌿
+    elseif process:find("htop") then
+        icon = "📊"
+    elseif process:find("zsh") or process:find("bash") then
+        icon = "💲"
+    end
+
+    -- Format: `process — ~/W/p/project-a`
+    local formatted = string.format("%s %s %s", icon, process, short_cwd)
+
+    -- -- Truncate if still too long
+    -- if #formatted > max_width then
+    --     formatted = "..." .. formatted:sub(-max_width + 1)
+    -- end
+
+    return {
+        { Text = " " .. formatted .. " " },
+    }
+end)
 
 config.selection_word_boundary = " \t\n{}[]()\"'`~,;:│=&!%^<>"
 
