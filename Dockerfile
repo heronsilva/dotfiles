@@ -23,7 +23,7 @@ COPY --chown=heron:heron ./ /home/heron/Workbench/dotfiles
 WORKDIR /home/heron/Workbench/dotfiles
 
 # Make scripts executable
-RUN chmod +x ./install ./_bootstrap
+RUN chmod +x ./install ./bootstrap
 
 # Test the installation
 RUN ./install

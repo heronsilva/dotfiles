@@ -26,10 +26,6 @@ alias l='ls -lAh'
 alias ll='ls -lh'
 alias la='ls -lah'
 
-# Podman
-# alias docker=podman
-# compdef _podman docker
-
 # File management
 unset alias cp
 unset alias mv
@@ -37,9 +33,13 @@ unset alias rm
 
 # Docker Compose
 docker_cmd="docker"
-# if is_installed podman; then
-# 	docker_cmd="podman"
-# fi
+
+# Podman
+if is_installed podman; then
+	docker_cmd="podman"
+	alias docker=podman
+	compdef _podman docker
+fi
 
 alias dco="$docker_cmd compose"
 alias dcb="$docker_cmd compose build"

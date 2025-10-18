@@ -1,3 +1,3 @@
-docker image rm test
-docker build --no-cache -t test .
-docker run -it --rm --user heron test zsh
+$docker_cmd image rm test
+$docker_cmd build --no-cache -t test .
+$docker_cmd run -it --rm --user heron test zsh

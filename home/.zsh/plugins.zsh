@@ -24,7 +24,7 @@ zinit light zsh-users/zsh-completions
 # OMZ plugins and utilities
 is_installed git && zinit snippet OMZ::plugins/git/git.plugin.zsh
 is_installed docker && is_not_alias docker && zinit snippet OMZ::plugins/docker/docker.plugin.zsh
-# is_installed podman && zinit snippet OMZ::plugins/podman/podman.plugin.zsh
+is_installed podman && zinit snippet OMZ::plugins/podman/podman.plugin.zsh
 
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
