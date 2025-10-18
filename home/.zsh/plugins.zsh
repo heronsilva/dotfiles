@@ -36,3 +36,8 @@ zinit snippet OMZ::plugins/mise/mise.plugin.zsh
 # Performance-related
 zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
 zinit light zdharma-continuum/zinit-annex-bin-gem-node
+
+zinit load agkozak/zsh-z
+ZSHZ_CMD='j'
+ZSHZ_TILDE=1
+ZSHZ_KEEP_DIRS=('~/Desktop/' '~/Documents/' '~/Downloads/' '~/Workbench/')

@@ -5,6 +5,8 @@ alias glr="git pull --rebase"
 alias nv=$(which nvim)
 alias xablau="npm run dev:debug"
 alias xcurl="curl -o /dev/null -s -w %{time_total}"
+alias j='z'
+alias jw='cd ~/Workbench/'
 
 # .oh-my-zsh/lib/directories.zsh
 # Changing/making/removing directory
