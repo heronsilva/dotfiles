@@ -8,7 +8,7 @@ return {
         local config = require("session_manager.config")
 
         require("session_manager").setup(vim.tbl_deep_extend("force", opts, {
-            autoload_mode = { config.AutoloadMode.CurrentDir, config.AutoloadMode.LastSession },
+            autoload_mode = { config.AutoloadMode.CurrentDir },
             autosave_last_session = true,
             load_include_current = true,
         }))
