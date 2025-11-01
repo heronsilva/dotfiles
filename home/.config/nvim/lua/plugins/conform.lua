@@ -40,8 +40,12 @@ return {
 
                 c = { "clang_format" },
 
+                css = { "prettierd" },
+                html = { "prettierd" },
                 javascript = { "eslint_d", "prettierd", stop_after_first = true },
                 typescript = { "eslint_d", "prettierd", stop_after_first = true },
+                javascriptreact = { "eslint_d", "prettierd", stop_after_first = true },
+                typescriptreact = { "eslint_d", "prettierd", stop_after_first = true },
                 json = { "eslint_d", "prettierd", stop_after_first = true },
 
                 lua = { "stylua" },
