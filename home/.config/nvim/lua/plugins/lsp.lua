@@ -290,34 +290,33 @@ return {
             },
         })
 
-        lspconfig.pyright.setup({
+        vim.lsp.config("pyright", {
             capabilities = capabilities,
             filetypes = { "python" },
         })
 
-        lspconfig.clangd.setup({
+        vim.lsp.config("clangd", {
             capabilities = capabilities,
             filetypes = { "c", "cpp", "objc", "objcpp" },
         })
 
-        lspconfig.taplo.setup({
+        vim.lsp.config("taplo", {
             capabilities = capabilities,
             filetypes = { "toml" },
         })
 
-        -- lspconfig.eslint.setup({})
-        lspconfig.eslint.setup({
+        vim.lsp.config("eslint", {
             root_dir = function(fname)
                 return util.root_pattern(".eslintrc", ".eslintrc.json", "eslint.config.js", "eslint.config.mjs")(fname)
                     or vim.fn.expand("~/Workbench") -- Use global ESLint if no project config
             end,
         })
 
-        lspconfig.prettier = {
+        vim.lsp.config("prettier", {
             root_dir = function(fname)
                 return util.root_pattern(".prettierrc", ".prettierrc.json", "prettier.config.js")(fname)
                     or vim.fn.expand("~/Workbench") -- Use global Prettier if no project config
             end,
-        }
+        })
     end,
 }
