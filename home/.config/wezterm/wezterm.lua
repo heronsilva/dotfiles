@@ -38,7 +38,7 @@ config.font_size = 14
 -- config.enable_tab_bar = false -- Hide ugly default tab bar
 config.tab_bar_at_bottom = true -- Moves the tab bar to the bottom
 config.use_fancy_tab_bar = true -- Enables a sleek, modern tab bar
-config.hide_tab_bar_if_only_one_tab = false
+config.hide_tab_bar_if_only_one_tab = true
 
 -- Persistent Sessions (Like Tmux)
 -- Auto-save all open tabs and panes so they reopen exactly as you left them:
