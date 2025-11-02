@@ -2,6 +2,7 @@ alias c=clear && printf '\e[3J'
 alias gswr="git switch release-dev"
 alias g-="git switch -"
 alias glr="git pull --rebase"
+alias gs="git sync"
 alias nv=$(which nvim)
 alias xablau="npm run dev:debug"
 alias xcurl="curl -o /dev/null -s -w %{time_total}"
