@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Configuration: Define branches you want to protect
+PROTECTED_BRANCHES="^(main|master|dev|develop)$"
+
+# Get the current branch name
+current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+# Check if the push command contains 'force' or '-f'
+# This works by checking the parent process (the git command you typed)
+push_command=$(ps -ocommand= -p $PPID)
+is_force_push=$(echo "$push_command" | grep -E "force|-f")
+
+if [[ "$current_branch" =~ $PROTECTED_BRANCHES ]]; then
+    if [ -n "$is_force_push" ]; then
+        echo "❌ [POLICY] Force pushing to '$current_branch' is strictly forbidden locally."
+        exit 1
+    fi
+
+    # Optional: Uncomment below to block ALL direct pushes to these branches
+    # echo "❌ [POLICY] Direct pushes to '$current_branch' are forbidden. Use a PR."
+    # exit 1
+fi
+
+exit 0
