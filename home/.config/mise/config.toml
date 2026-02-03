@@ -1,15 +1,33 @@
 [tools]
-lua = "5"
-node = "latest"
-python = "3"
+lua = "latest"
+python = "3.14"
 ruby = "3"
 rust = "stable"
-usage = "2.3.2"
+usage = "latest"
+
+[tools.node]
+version = "25"
+postinstall = """
+  # [ -x \"$(command -v corepack)\" ] \
+  #   || npm install -g corepack \
+  #   && corepack enable pnpm
+
+  command -v corepack >/dev/null \
+    || npm install -g corepack \
+    && corepack enable pnpm
+"""
+
 
 [hooks]
 enter = "mise install"
 
 [settings]
 experimental = true
-
 jobs = 4
+# trusted_config_paths = [
+#   '~/work/my-trusted-projects',
+# ]
+
+# [shell_alias]
+# ll = "ls -la"
+
