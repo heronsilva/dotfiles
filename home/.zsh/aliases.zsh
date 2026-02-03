@@ -3,7 +3,7 @@ alias nv=$(which nvim)
 alias xablau="npm run dev:debug"
 alias xcurl="curl -o /dev/null -s -w %{time_total}"
 alias j='z'
-alias jw='cd ~/Workbench/'
+alias jw='cd $HOME/Workbench/'
 
 alias gs="git sync"
 alias g-="git switch -"
@@ -64,8 +64,8 @@ alias dcstart="$docker_cmd compose start"
 alias dck="$docker_cmd compose kill"
 
 alias //="brew update && brew upgrade && brew cleanup"
-alias vimrc="vim ~/.vimrc"
-alias wezrc="nvim ~/.config/wezterm/wezterm.lua"
+alias vimrc="vim $HOME/.vimrc"
+alias wezrc="nvim $HOME/.config/wezterm/wezterm.lua"
 
 #
 # Airtm

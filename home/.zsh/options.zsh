@@ -13,7 +13,7 @@ zstyle ':completion:*' menu select
 setopt complete_in_word
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
-HISTFILE=~/.histfile
+HISTFILE=$HOME/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"  # Makes the suggestion text lighter.
