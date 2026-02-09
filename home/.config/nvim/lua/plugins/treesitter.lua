@@ -1,14 +1,58 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        main = "nvim-treesitter.configs",
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
 
-        dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+        dependencies = {
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                branch = "main",
+            },
+        },
+
+        config = function()
+            local ts = require("nvim-treesitter")
+            local parsers = {
+                "bash",
+                "c",
+                "diff",
+                "dockerfile",
+                "html",
+                "javascript",
+                "json",
+                "jsonc",
+                "lua",
+                "luadoc",
+                "luap",
+                "markdown",
+                "markdown_inline",
+                "python",
+                "query",
+                "regex",
+                "sql",
+                "toml",
+                "typescript",
+                "vim",
+                "vimdoc",
+                "yaml",
+            }
+
+            for _, parser in ipairs(parsers) do
+                pcall(ts.install, parser)
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    pcall(vim.treesitter.start)
+                end,
+            })
+        end,
 
         -- From LazyVim
-        lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-        event = { "VeryLazy" },
+        -- lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+        -- event = { "VeryLazy" },
         opts_extend = { "ensure_installed" },
         ---@type TSConfig
         opts = {
@@ -129,33 +173,6 @@ return {
             -- ignore_install = {},
             -- modules = {},
         },
-
-        ---@param opts TSConfig
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
-            require("nvim-treesitter.configs").setup({ textobjects = opts.textobjects })
-
-            -- When in diff mode, we want to use the default
-            -- vim text objects c & C instead of the treesitter ones.
-            local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
-            local configs = require("nvim-treesitter.configs")
-            for name, fn in pairs(move) do
-                if name:find("goto") == 1 then
-                    move[name] = function(q, ...)
-                        if vim.wo.diff then
-                            local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
-                            for key, query in pairs(config or {}) do
-                                if q == query and key:find("[%]%[][cC]") then
-                                    vim.cmd("normal! " .. key)
-                                    return
-                                end
-                            end
-                        end
-                        return fn(q, ...)
-                    end
-                end
-            end
-        end,
 
         -- There are additional nvim-treesitter modules that you can use to interact
         -- with nvim-treesitter. You should go explore a few and see what interests you:
