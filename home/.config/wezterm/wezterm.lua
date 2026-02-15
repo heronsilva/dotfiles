@@ -28,7 +28,7 @@ config.scrollback_lines = 100000
 
 config.color_scheme = get_color_scheme()
 -- config.font = wezterm.font("Iosevka Nerd Font Mono" --[[{,  weight = "Bold", italic = true } --]])
-config.font = wezterm.font_with_fallback({ "Iosevka Nerd Font Mono", "Monaco", "monospace" })
+config.font = wezterm.font_with_fallback({ "IosevkaTerm Nerd Font Mono", "Monaco", "monospace" })
 config.font_size = 14
 
 -- 🌙 Transparent background with blur
@@ -132,8 +132,7 @@ config.window_frame = {
 }
 
 local home_dir = wezterm.home_dir
--- local target_dir = home_dir .. "/Workbench/airtm/local-env/repos"
-local target_dir = home_dir .. "/Workbench"
+local target_dir = home_dir .. "/Workbench/airtm/local-env/repos"
 config.default_cwd = wezterm.run_child_process({
     "test",
     "-d",
@@ -155,32 +154,42 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     cwd = cwd:gsub("^" .. home, "~")
 
     -- Smart truncate the path
-    local function smart_shorten(path)
-        local parts = {}
-        for part in path:gmatch("[^/]+") do
-            table.insert(parts, part)
+    -- local function smart_shorten(path)
+    --     local parts = {}
+    --     for part in path:gmatch("[^/]+") do
+    --         table.insert(parts, part)
+    --     end
+    --
+    --     if #parts <= 2 then
+    --         return table.concat(parts, "/") -- nothing to shorten
+    --     end
+    --
+    --     local shortened = {}
+    --     for i = 1, #parts - 1 do
+    --         if i == 1 then
+    --             table.insert(shortened, parts[i]) -- keep '~' or leading part
+    --         else
+    --             table.insert(shortened, parts[i]:sub(1, 1)) -- first letter only
+    --         end
+    --     end
+    --
+    --     -- Keep the last part fully
+    --     table.insert(shortened, parts[#parts])
+    --
+    --     return table.concat(shortened, "/")
+    -- end
+
+    -- local short_cwd = smart_shorten(cwd)
+    local title = tab.active_pane.title or ""
+    local cwd_uri = tab.active_pane.current_working_dir
+    if cwd_uri then
+        local cwd = cwd_uri.file_path or ""
+        -- Extract the last directory name
+        local last_path = string.match(cwd, "([^/]+)/*$")
+        if last_path then
+            title = last_path
         end
-
-        if #parts <= 2 then
-            return table.concat(parts, "/") -- nothing to shorten
-        end
-
-        local shortened = {}
-        for i = 1, #parts - 1 do
-            if i == 1 then
-                table.insert(shortened, parts[i]) -- keep '~' or leading part
-            else
-                table.insert(shortened, parts[i]:sub(1, 1)) -- first letter only
-            end
-        end
-
-        -- Keep the last part fully
-        table.insert(shortened, parts[#parts])
-
-        return table.concat(shortened, "/")
     end
-
-    local short_cwd = smart_shorten(cwd)
 
     -- Optional: Add emojis or icons based on process
     local icon = ""
@@ -195,10 +204,13 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
         icon = "📊"
     elseif process:find("zsh") or process:find("bash") then
         icon = "💲"
+    elseif process:find("node") then
+        icon = "🦖"
     end
 
     -- Format: `process — ~/W/p/project-a`
-    local formatted = string.format("%s %s %s", icon, process, short_cwd)
+    -- local formatted = string.format("%s %s %s", icon, process, title)
+    local formatted = string.format("%s %s", icon, title)
 
     -- -- Truncate if still too long
     -- if #formatted > max_width then
