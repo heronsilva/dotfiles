@@ -10,7 +10,6 @@
     ~/.bashrc:
       path: home/.bashrc
       force: true
-    ~/.bash_aliases: home/.bash_aliases
 
     ~/.zsh:
       force: true
@@ -18,9 +17,7 @@
     ~/.zshrc:
       force: true
       path: home/.zsh/.zshrc
-    ~/.p10k.zsh:
-      force: true
-      path: .p10k.zsh
+    ~/.p10k.zsh: home/.p10k.zsh
 
     # terminal emulators
     ~/.config/alacritty:
@@ -38,7 +35,7 @@
       path: home/.config/nvim
 
     # scripts
-    ~/.local/bin/yt-wpp: scripts/yt-wpp.sh
+    ~/.local/bin/yt-wpp: home/.local/bin/yt-wpp.sh
 
     # in case of deleting ~/.config/nvim, use this to relink:
     # mv ~/.config/nvim .config/
@@ -49,7 +46,7 @@
       create: true
       path: ./home/.config/mise
     ~/.gitconfig: home/.gitconfig
-    ~/.config/git/hooks/prevent-force-push: home/.config/git/prevent-force-push
+    ~/.git/hooks/prevent-force-push: home/.config/git/hooks/prevent-force-push
     ~/.inputrc: .inputrc
     ~/.tmux.conf: home/.tmux.conf
     ~/.Brewfile:
