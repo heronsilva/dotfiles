@@ -205,7 +205,7 @@ apply_macos_defaults() {
 
 # Main installation function
 main() {
-    log_info "🚀 Starting dotfiles installation..."
+    log_info "Starting dotfiles installation..."
     log_info "Repository: $DOTFILES_REPO"
     log_info "Installation directory: $DOTFILES_DIR"
 
@@ -241,12 +241,12 @@ main() {
         apply_macos_defaults
     fi
 
-    log_success "🎉 Dotfiles installation completed successfully!"
+    log_success "Dotfiles installation completed successfully!"
     log_info "Backup created at: $BACKUP_DIR"
     log_info "To restore from backup: cp -r $BACKUP_DIR/* ~/"
 
     # Suggest shell restart
-    log_info "💡 Restart your shell or run 'source ~/.zshrc' to apply changes"
+    log_info "Restart your shell or run 'source ~/.zshrc' to apply changes"
 }
 
 # Run main function
