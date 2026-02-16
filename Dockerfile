@@ -1,7 +1,8 @@
 FROM manjarolinux/base
 
 # Install basic packages and setup sudo
-RUN pacman -Sy --noconfirm sudo git zsh vim curl wget base-devel python python-pip
+RUN pacman -Syu --noconfirm
+RUN pacman -Sy --noconfirm sudo git zsh vim curl base-devel python python-pip
 RUN pacman -Scc --noconfirm
 
 # Create user and setup sudo
@@ -22,11 +23,7 @@ COPY --chown=heron:heron ./ /home/heron/Workbench/dotfiles
 
 WORKDIR /home/heron/Workbench/dotfiles
 
-# Make scripts executable
-RUN chmod +x ./install ./bootstrap
-
-# Test the installation
-RUN ./install
+RUN chmod +x ./bootstrap && ./bootstrap
 
 # Set default shell to zsh if available
 RUN if [ -f /home/heron/.zshrc ]; then echo "Dotfiles installation completed successfully"; fi

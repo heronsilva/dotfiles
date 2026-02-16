@@ -1,9 +1,9 @@
 services:
-  manjaro:
+  archlinux:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dotfiles-manjaro
+    container_name: dotfiles-archlinux
     volumes:
       - .:/home/heron/Workbench/dotfiles
     working_dir: /home/heron/Workbench/dotfiles
@@ -28,6 +28,18 @@ services:
       context: .
       dockerfile: Dockerfile.fedora
     container_name: dotfiles-fedora
+    volumes:
+      - .:/home/heron/Workbench/dotfiles
+    working_dir: /home/heron/Workbench/dotfiles
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+
+  opensuse:
+    build:
+      context: .
+      dockerfile: Dockerfile.opensuse
+    container_name: dotfiles-opensuse
     volumes:
       - .:/home/heron/Workbench/dotfiles
     working_dir: /home/heron/Workbench/dotfiles
