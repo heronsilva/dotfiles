@@ -1,8 +1,9 @@
 [tools]
+go = "1.26.0"
 lua = "latest"
-node.version = "25"
-node.postinstall = "command -v corepack >/dev/null || npm install -g corepack && corepack enable pnpm"
-python = "3.14"
+# node.postinstall = "command -v corepack >/dev/null || npm install -g npm; npm install -g -y corepack && corepack enable pnpm"
+node.version = "lts"
+python = "latest"
 usage = "latest"
 
 [hooks]
