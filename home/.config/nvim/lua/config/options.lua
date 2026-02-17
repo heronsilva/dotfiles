@@ -259,3 +259,7 @@ opt.autoread = true
 opt.shortmess = "I"
 
 vim.g.vscode = 1
+
+-- vim.g.lazyvim_eslint_auto_format = 1
+vim.g.ale_use_neovim_diagnostics_api = 1
+vim.g.ale_fix_on_save = 1

@@ -4,7 +4,7 @@ return {
     cmd = { "ConformInfo" },
     keys = {
         {
-            "<leader>f",
+            "<leader>fm",
             function()
                 require("conform").format({
                     async = true,
@@ -25,13 +25,18 @@ return {
                 -- languages here or re-enable it for the disabled ones.
                 local disable_filetypes = {}
                 local lsp_format_opt
+                local lsp_fallback = false
+
                 if disable_filetypes[vim.bo[bufnr].filetype] then
                     lsp_format_opt = "never"
                 else
+                    lsp_fallback = true
                     lsp_format_opt = "fallback"
                 end
+
                 return {
-                    timeout_ms = 500,
+                    timeout_ms = 300,
+                    lsp_fallback = lsp_fallback,
                     lsp_format = lsp_format_opt,
                 }
             end,
@@ -59,6 +64,8 @@ return {
                         return { "isort", "black" }
                     end
                 end,
+
+                bash = { "shfmt", "shellcheck", stop_after_first = true },
             },
         })
     end,
