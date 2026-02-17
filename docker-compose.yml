@@ -47,15 +47,14 @@ services:
     stdin_open: true
     tty: true
 
-  # Test _bootstrap script (remote installation simulation)
-  bootstrap-test:
+  # Test bootstrap script (remote installation simulation)
+  bootstrap:
     build:
       context: .
       dockerfile: Dockerfile.bootstrap
-    container_name: dotfiles-_bootstrap
-    volumes:
-      - .:/tmp/dotfiles-source
-    working_dir: /home/testuser
+    container_name: dotfiles-bootstrap
+    working_dir: /home/egret
     command: /bin/bash
-    stdin_open: true
-    tty: true
+    user: "egret:wheel"
+    stdin_open: false
+    tty: false
