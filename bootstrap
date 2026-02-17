@@ -4,6 +4,30 @@ set -e
 
 if [ -f "scripts/utils.sh" ]; then
     source scripts/utils.sh
+else
+    # Fallback definitions if utils.sh is not available yet (e.g. initial bootstrap)
+    log_info() { echo -e "\033[0;34m[INFO]\033[0m $1"; }
+    log_success() { echo -e "\033[0;32m[SUCCESS]\033[0m $1"; }
+    log_warning() { echo -e "\033[1;33m[WARNING]\033[0m $1"; }
+    log_error() { echo -e "\033[0;31m[ERROR]\033[0m $1"; }
+    command_exists() { command -v "$1" > /dev/null 2>&1; }
+    ask_confirm() {
+        local prompt="$1"
+        if [ "$DOTFILES_AUTO_INSTALL" = "1" ] || [ ! -t 0 ]; then return 0; fi
+        while true; do
+            read -p "$prompt [y/n]: " yn
+            case $yn in [Yy]*) return 0 ;; [Nn]*) return 1 ;; *) echo "Please answer yes or no." ;; esac
+        done
+    }
+    run() { if [ "$(id -u)" -ne 0 ] && command_exists sudo; then sudo "$@"; else "$@"; fi; }
+    detect_os() {
+        if [ "$(uname -s)" = "Darwin" ]; then
+            echo "macos"
+        elif [ -f /etc/os-release ]; then
+            . /etc/os-release
+            echo "$ID"
+        else echo "linux"; fi
+    }
 fi
 
 DOTFILES_REPO="${REPO_URL:-https://github.com/heronsilva/dotfiles.git}"
