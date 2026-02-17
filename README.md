@@ -1,23 +1,20 @@
 # Dotfiles
 
-Personal dotfiles configuration with support for macOS and Linux systems.
+Personal dotfiles configuration with support for Linux and macOS.
 
-## Quick Installation (Recommended)
+## Quick Installation
 
-### One-line Remote Installation
-
-For the fastest setup, run this single command:
-
-```bash
+```shell
 curl -fsSL https://raw.githubusercontent.com/heronsilva/dotfiles/main/bootstrap | bash
 ```
 
 This will:
+
 - Automatically detect your operating system (macOS or Linux)
 - Install prerequisites (Homebrew on macOS, package managers on Linux)
 - Clone the repository
 - Create backups of existing dotfiles
-- Install and configure everything
+- Install and link dotfiles configuration
 
 ### Manual Installation
 
@@ -32,16 +29,21 @@ cd ~/Workbench/dotfiles
 ## Platform Support
 
 ### macOS
-- Automatically installs Homebrew if not present
-- Installs Xcode Command Line Tools if needed
-- Installs packages via Brewfile
-- Configures macOS-specific applications (Finicky, etc.)
+
+- Prompts to install Xcode Command Line Tools if needed
+- Prompts to install Homebrew if not present
+- Installs packages and casks from `Brewfile`
+- Configures macOS defaults
 
 ### Linux
+
 Supports major Linux distributions:
-- **Ubuntu/Debian**: Uses `apt` package manager
-- **Fedora/RHEL/CentOS**: Uses `dnf`/`yum` package manager
-- **Arch/Manjaro**: Uses `pacman` package manager
+
+- **Ubuntu/Debian**
+- **Fedora/CentOS**
+- **Arch/Manjaro**
+- **openSUSE**
+- **Alpine**
 
 ## What's Included
 
@@ -56,83 +58,66 @@ Supports major Linux distributions:
 
 Test the dotfiles installation on different Linux distributions:
 
-```bash
+```shell
 # Test on all distributions
-docker compose up --build --menu=false
+docker compose up --build --menu=false # defaults to archlinux
 
 # Test on specific distribution
-docker compose up --build --menu=false ubuntu    # Ubuntu 22.04
-docker compose up --build --menu=false fedora    # Fedora 38
-docker compose up --build --menu=false manjaro   # Manjaro Linux
+docker compose up --build --menu=false ubuntu
+docker compose up --build --menu=false fedora
+docker compose up --build --menu=false opensuse
 
 # Test _bootstrap script
-docker compose up --build --menu=false _bootstrap-test
+docker compose up --build --menu=false bootstrap-test
 ```
 
 ### Interactive Testing
 
-```sh
+```shell
 # Run interactive container for manual testing
 docker compose run ubuntu /bin/bash
 docker compose run fedora /bin/bash
-docker compose run manjaro /bin/zsh
-```
-
-## Manual Package Installation
-
-If you want to install packages separately:
-
-### macOS
-```bash
-brew bundle --file ./home/Brewfile
-```
-
-### Linux
-```bash
-# Ubuntu/Debian
-sudo apt update
-grep -v '^#' ./home/packages-apt.txt | grep -v '^$' | xargs sudo apt install -y
-
-# Fedora/RHEL/CentOS
-grep -v '^#' ./home/packages-dnf.txt | grep -v '^$' | xargs sudo dnf install -y
-
-# Arch/Manjaro
-sudo pacman -Sy
-grep -v '^#' ./home/packages-pacman.txt | grep -v '^$' | xargs sudo pacman -S --noconfirm
+docker compose run opensuse /bin/zsh
+docker compose run archlinux /bin/zsh
 ```
 
 ## Backup and Recovery
 
 The installation process automatically creates backups of existing dotfiles in:
+
 ```
 ~/.dotfiles_backup_YYYYMMDD_HHMMSS/
 ```
 
 To restore from backup:
-```bash
+
+```shell
 cp -r ~/.dotfiles_backup_YYYYMMDD_HHMMSS/* ~/
 ```
 
 ## Customization
 
 - Edit `install.conf.yaml` to modify dotbot configuration
-- Add packages to the appropriate package files (`Brewfile`, `packages-*.txt`)
 - Customize shell configuration in `home/.zsh/`
 - Modify application configs in `home/.config/`
 
 ## Troubleshooting
 
 ### Prerequisites Issues
+
 The bootstrap script handles most prerequisites automatically. If you encounter issues:
 
 **macOS:**
+
 - Ensure Xcode Command Line Tools are installed: `xcode-select --install`
 - Manually install Homebrew if needed: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
 **Linux:**
+
 - Ensure your system is up to date
 - Install git manually if the bootstrap fails: `sudo apt install git` (Ubuntu) or equivalent
 
 ### Permission Issues
+
 If you encounter permission issues, ensure your user has sudo privileges or run the installation as a user with appropriate permissions.
 ****
