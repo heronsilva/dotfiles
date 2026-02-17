@@ -44,17 +44,13 @@
 
     ~/.config/mise:
       create: true
-      path: ./home/.config/mise
+      path: home/.config/mise
     ~/.gitconfig: home/.gitconfig
     ~/.git/hooks/prevent-force-push: home/.config/git/hooks/prevent-force-push
     ~/.inputrc: .inputrc
     ~/.tmux.conf: home/.tmux.conf
-    ~/.Brewfile:
-      if: '[ `uname` = Darwin ]'
-      path: home/Brewfile
-    ~/.finicky.ts:
-      if: '[ `uname` = Darwin ]'
-      path: home/finicky.ts
+    ~/.Brewfile: home/Brewfile
+    ~/.finicky.ts: home/finicky.ts
 
 - create:
     - ~/Workbench
@@ -62,74 +58,6 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-
-    - description: install vim plug
-      command: |
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-    - description: "Compile copyfile.swift"
-      command: |
-        if [[ "$(uname)" == "Darwin" ]]; then
-          swiftc ./bin/copyfile.swift -o ./bin/copyfile
-        fi
-
-    - description: "Link copyfile to ~/.local/bin"
-      command: |
-        if [[ "$(uname)" == "Darwin" && -f ./bin/copyfile ]]; then
-          ln -sf "$(pwd)/bin/copyfile" ~/.local/bin/copyfile
-        fi
-
-    - description: "Install Homebrew packages"
-      command: |
-        if [[ "$(uname)" == "Darwin" && -x "$(command -v brew)" ]]; then
-          brew bundle --file ./home/Brewfile
-        fi
-
-    - description: "Install Linux packages (Ubuntu/Debian)"
-      command: |
-        if [[ "$(uname)" == "Linux" && -f /etc/debian_version ]]; then
-          echo "Installing packages for Ubuntu/Debian..."
-
-          # Update package list
-          sudo apt update
-
-          # Install packages from list (skip comments and empty lines)
-          # Use || true to continue even if some packages fail
-          grep -v '^#' ./home/packages-apt.txt | grep -v '^$' | while read package; do
-            echo "Installing $package..."
-            sudo apt install -y "$package" || echo "Failed to install $package, anyways..."
-          done
-        fi
-
-    - description: "Install Linux packages (Fedora/RHEL/CentOS)"
-      command: |
-        if [[ "$(uname)" == "Linux" && -f /etc/redhat-release ]]; then
-          echo "Installing packages for Fedora/RHEL/CentOS..."
-
-          # Update package list
-          sudo dnf update
-
-          # Install packages from list (skip comments and empty lines)
-          grep -v '^#' ./home/packages-dnf.txt | grep -v '^$' | while read package; do
-            echo "Installing $package..."
-            sudo dnf install -y "$package" || echo "Failed to install $package, anyways..."
-          done
-        fi
-
-    - description: "Install Linux packages (Arch/Manjaro)"
-      command: |
-        if [[ "$(uname)" == "Linux" && -f /etc/arch-release ]]; then
-          echo "Installing packages for Arch/Manjaro..."
-
-          # Update package database
-          sudo pacman -Sy
-
-          # Install packages from list (skip comments and empty lines)
-          grep -v '^#' ./home/packages-pacman.txt | grep -v '^$' | while read package; do
-            echo "Installing $package..."
-            sudo pacman -S --noconfirm "$package" || echo "Failed to install $package, anyways..."
-          done
-        fi
 
     - description: "Install mise"
       command: |
@@ -153,6 +81,16 @@
         else
           echo "mise is already installed, skipping..."
         fi
+
+    - description: "Compile copyfile.swift"
+      command: |
+        if [ "$(uname)" = "Darwin" ]; then
+          swiftc ./bin/copyfile.swift -o ~/.local/bin/copyfile
+        fi
+
+    - description: install vim plug
+      command: |
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     - description: "Install fonts"
       command: "sh ./scripts/install-fonts.sh"
