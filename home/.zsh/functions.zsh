@@ -34,11 +34,20 @@ function is_not_alias {
 }
 
 copy() {
-	if [[ "${XDG_SESSION_TYPE}" == "wayland" ]]; then
-		$1 | wl-copy -n
+	local -a clipboard_cmd
+	if [[ "$(uname -s)" == "Darwin" ]]; then
+		clipboard_cmd=(pbcopy)
+	elif [[ "${XDG_SESSION_TYPE}" == "wayland" ]]; then
+		clipboard_cmd=(wl-copy -n)
+	else
+		clipboard_cmd=(xclip -selection clipboard)
 	fi
 
-	$1 | xclip -selection clipboard
+	if [[ $# -eq 0 ]]; then
+		"${clipboard_cmd[@]}"
+	else
+		"$@" | "${clipboard_cmd[@]}"
+	fi
 }
 
 mkcd() {
