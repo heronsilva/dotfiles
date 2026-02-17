@@ -5,7 +5,7 @@ Personal dotfiles configuration with support for Linux and macOS.
 ## Quick Installation
 
 ```shell
-curl -fsSL https://raw.githubusercontent.com/heronsilva/dotfiles/main/bootstrap | bash
+curl -fsSL https://raw.githubusercontent.com/heronsilva/dotfiles/master/bootstrap | bash
 ```
 
 This will:
