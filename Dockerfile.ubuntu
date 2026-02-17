@@ -1,40 +1,16 @@
 FROM ubuntu:rolling
 
-# Install basic packages and setup sudo
-RUN apt update && apt install -y \
-    sudo \
-    git \
-    zsh \
-    vim \
-    curl \
-    wget \
-    build-essential \
-    python3 \
-    python3-pip \
-    && apt autoremove \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y sudo \
+    && useradd -m -s /bin/zsh heron \
+    && usermod -aG sudo heron \
+    && echo 'heron ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && echo 'heron:123' | chpasswd
 
-# Create user and setup sudo
-RUN useradd -m -s /bin/zsh heron
-RUN usermod -aG sudo heron
-RUN echo 'heron ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-RUN echo 'heron:123' | chpasswd
-
-# Switch to user
 USER heron
 
-# Create necessary directories
-RUN mkdir -p /home/heron/Workbench /home/heron/.local/bin
-
-# Copy dotfiles
 COPY --chown=heron:heron ./ /home/heron/Workbench/dotfiles
-
 WORKDIR /home/heron/Workbench/dotfiles
 
 RUN chmod +x ./bootstrap && ./bootstrap
 
-# Verify installation
-RUN if [ -f /home/heron/.zshrc ]; then echo "Ubuntu dotfiles installation completed successfully"; fi
-
-# Default command
 CMD ["/bin/zsh"]

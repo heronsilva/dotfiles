@@ -1,14 +1,13 @@
 FROM opensuse/tumbleweed
 
-RUN zypper refresh && zypper install -y sudo curl gzip tar zsh
+RUN zypper refresh \
+    && zypper install -y sudo curl gzip tar zsh \
+    && groupadd wheel || true \
+    && useradd -m -s /bin/bash egret \
+    && usermod -aG wheel egret \
+    && echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
 
-RUN groupadd wheel || true
-RUN useradd -m -s /bin/bash egret
-RUN usermod -aG wheel egret
-
-RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 USER egret
-
 WORKDIR /home/egret
 
 CMD ["/bin/bash"]
