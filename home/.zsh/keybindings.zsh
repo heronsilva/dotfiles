@@ -15,7 +15,7 @@ bindkey "^[[F" end-of-line                      # Key End
 bindkey "^[[1;3C" forward-word                  # Key Alt + Right
 bindkey "^[[1;3D" backward-word                 # Key Alt + Left
 
-WORDCHARS='*?_.[]~=&;!#$%^(){}<>'
+WORDCHARS='*?_[]~&;!#$%^(){}<>'
 autoload -Uz select-word-style
 select-word-style normal
 zstyle ':zle:*' word-style unspecified
