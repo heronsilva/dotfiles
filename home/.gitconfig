@@ -15,21 +15,22 @@
   excludesfile = ~/.gitignore_global
   editor = vim
   autocrlf = input
-	fileMode = false
+  fileMode = false
   pager = diff-so-fancy | less --tabs=4 -RFX
+  hooksPath = $HOME/.config/git/hooks
 
 [diff]
-    tool = vimdiff
-    colorMoved = default
+  tool = vimdiff
+  colorMoved = default
 
 [merge]
-    tool = vimdiff
+  tool = vimdiff
 
 [fetch]
   prune = true
 
 [push]
-    default = current
+  default = current
 
 [pull]
   rebase = true
